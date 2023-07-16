@@ -1,3 +1,4 @@
+import 'package:catalogo_video/pages/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -44,7 +45,10 @@ class _LoginPageState extends State<LoginPage> {
                       _buildText('Ainda não tem cadastro?' , Colors.white, 16),
                       GestureDetector(
                         onTap: () {
-                          // Ação a ser executada quando o link for pressionado
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => SignUp()), // Substitua "NovaTela" pelo nome da tela para a qual deseja navegar
+                          );
                         },
                         child: Text(
                           'Clique aqui',
