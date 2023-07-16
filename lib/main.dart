@@ -6,6 +6,6 @@ void main() {
   runApp(MaterialApp(
     title: "Catálogo de Vídeos",
     debugShowCheckedModeBanner: false,
-    home: LoginPage(),
+    home: SignUp(),
   ));
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -20,9 +21,117 @@ class _SignUpState extends State<SignUp> {
           ),
         ),
         child: Center(
-          child: Text('Aa'),
+          child: Container(
+            height: 600,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Image.asset(
+                  'assets/et.png', // Substitua pelo caminho da sua imagem
+                  width: 140, // Ajuste a largura da imagem conforme necessário
+                  height: 140, // Ajuste a altura da imagem conforme necessário
+                ),
+                Container(
+                  child: Column(children: [
+                    _buildText('Crie uma nova conta', Colors.white, 16),
+                    _buildText('É rápido e fácil!', Colors.white, 16),
+                  ],),
+                ),
+                _buildTextLabel('Nome', Colors.white, 300, false),
+                _buildTextLabel('Email', Colors.white, 300, false),
+                _buildTextLabel('Senha', Colors.white, 300, true),
+                _buildButton('Cadastrar', Color(0xFFFFF400), 300)
+              ],
+            ),
+          ),
         ),
       ),
     );
   }
+
+  Widget _buildText(String text, Color color, double size) {
+    return Text(
+      text,
+      style: 
+        GoogleFonts.lexendDeca(
+          textStyle: TextStyle(
+          fontSize: size,
+          fontWeight: FontWeight.w400,
+          color: color,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTextLabel(String text, Color color, double width, senha){
+    return(
+      Container(
+        width: width,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+          Text(
+            text,
+            style: 
+              GoogleFonts.lexendDeca(
+                textStyle: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
+                color: color,
+              ),
+            ),
+          ),
+
+          Container(
+            height: 40.0,
+            width: width,
+            child: TextField(
+              decoration: InputDecoration(
+              filled: true,
+              fillColor: Colors.white,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(5.0),
+                ),
+                contentPadding: EdgeInsets.only(left: 5),
+              ),
+              obscureText: senha,
+              style: GoogleFonts.lexendDeca(
+                textStyle: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w400,
+                color: Colors.black,
+              ),
+            ),
+            ),
+          ),
+        ]),
+      )
+    );
+  }
+
+  Widget _buildButton(String text, Color color, double width){
+    return ElevatedButton(
+        onPressed: () {
+          
+        },
+        child: 
+        Text(
+          text,
+          style: GoogleFonts.lexendDeca(
+                textStyle: TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
+            ),
+        ),
+
+        style: ButtonStyle(
+          minimumSize: MaterialStateProperty.all(Size(width, 40.0)),
+          fixedSize: MaterialStateProperty.all(Size(width, 40.0)),
+          backgroundColor: MaterialStateProperty.all(color),
+        ),
+    );
+  }
+
 }

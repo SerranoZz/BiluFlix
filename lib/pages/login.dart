@@ -28,8 +28,8 @@ class _LoginPageState extends State<LoginPage> {
               children: [
                 Image.asset(
                   'assets/et.png', // Substitua pelo caminho da sua imagem
-                  width: 152, // Ajuste a largura da imagem conforme necessário
-                  height: 152, // Ajuste a altura da imagem conforme necessário
+                  width: 140, // Ajuste a largura da imagem conforme necessário
+                  height: 140, // Ajuste a altura da imagem conforme necessário
                 ),
                 _buildText('Login', Colors.white, 30),
                 _buildText('Olá, seja bem-vindo(a)', Colors.white, 21),
