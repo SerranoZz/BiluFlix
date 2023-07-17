@@ -22,7 +22,7 @@ class _UserState extends State<User> {
           ),
         ),
         child: Center(
-            child: Text('AAAAAA'),
+            
           ),
         ),
       );
