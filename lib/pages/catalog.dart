@@ -1,5 +1,9 @@
+
+import 'package:catalogo_video/pages/catalog_pages/film.dart';
+import 'package:catalogo_video/pages/catalog_pages/series.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 
 class Catalog extends StatefulWidget {
   const Catalog({super.key});
@@ -8,7 +12,20 @@ class Catalog extends StatefulWidget {
   State<Catalog> createState() => _CatalogState();
 }
 
-class _CatalogState extends State<Catalog> {
+class _CatalogState extends State<Catalog> with SingleTickerProviderStateMixin{
+  late TabController tabController;
+
+  @override
+  void initState(){
+    tabController = TabController(length: 2, vsync: this);
+    super.initState();
+  }
+
+  @override
+  void dispose(){
+    tabController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,20 +40,63 @@ class _CatalogState extends State<Catalog> {
         ),
         child: Center(
           child: Container(
-            height: 600,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Image.asset(
-                  'assets/et.png', // Substitua pelo caminho da sua imagem
-                  width: 70, // Ajuste a largura da imagem conforme necessário
-                  height: 70, // Ajuste a altura da imagem conforme necessário
-                ),
+              height: MediaQuery.of(context).size.height,
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: MediaQuery.of(context).padding.top,
+                  ),
+                  Image.asset(
+                    'assets/et.png', // Substitua pelo caminho da sua imagem
+                    width: 70, // Ajuste a largura da imagem conforme necessário
+                    height: 70, // Ajuste a altura da imagem conforme necessário
+                  ),
 
-                
-              ],
-            ),
-          ),
+                  Container(
+                    width: 286,
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.all(5),
+                          child: TabBar(
+                            unselectedLabelColor: Colors.white,
+                            indicatorColor: Colors.white,
+                            indicatorWeight: 2,
+                            controller: tabController,
+                             labelStyle: TextStyle(
+                              fontSize: 24, 
+                              fontWeight: FontWeight.normal, 
+                              fontFamily: 'Lexend',
+                              color: Colors.red, 
+                            ),
+                            tabs: [
+                              Tab(
+                                text: 'Filmes',
+                              ),
+                              
+                              Tab(
+                                text: 'Séries',
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  Expanded(
+                    child: 
+                    TabBarView(
+                      controller: tabController,
+                      children: [
+                        Film(),
+                        Serie(),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ), 
         ),
       ),
     );

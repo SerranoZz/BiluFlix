@@ -21,27 +21,29 @@ class _SignUpState extends State<SignUp> {
           ),
         ),
         child: Center(
-          child: Container(
-            height: 600,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Image.asset(
-                  'assets/et.png', // Substitua pelo caminho da sua imagem
-                  width: 140, // Ajuste a largura da imagem conforme necessário
-                  height: 140, // Ajuste a altura da imagem conforme necessário
-                ),
-                Container(
-                  child: Column(children: [
-                    _buildText('Crie uma nova conta', Colors.white, 16),
-                    _buildText('É rápido e fácil!', Colors.white, 16),
-                  ],),
-                ),
-                _buildTextLabel('Nome', Colors.white, 300, false),
-                _buildTextLabel('Email', Colors.white, 300, false),
-                _buildTextLabel('Senha', Colors.white, 300, true),
-                _buildButton('CADASTRAR', Color(0xFFFFF400), 300)
-              ],
+          child: SingleChildScrollView(
+            child: Container(
+              height: 600,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Image.asset(
+                    'assets/et.png', // Substitua pelo caminho da sua imagem
+                    width: 140, // Ajuste a largura da imagem conforme necessário
+                    height: 140, // Ajuste a altura da imagem conforme necessário
+                  ),
+                  Container(
+                    child: Column(children: [
+                      _buildText('Crie uma nova conta', Colors.white, 16),
+                      _buildText('É rápido e fácil!', Colors.white, 16),
+                    ],),
+                  ),
+                  _buildTextLabel('Nome:', Colors.white, 300, false),
+                  _buildTextLabel('Email:', Colors.white, 300, false),
+                  _buildTextLabel('Senha:', Colors.white, 300, true),
+                  _buildButton('CADASTRAR', Color(0xFFFFF400), 300)
+                ],
+              ),
             ),
           ),
         ),

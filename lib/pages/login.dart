@@ -36,63 +36,65 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ),
         child: Center(
-          child: Container(
-            height: 600,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Image.asset(
-                  'assets/et.png', // Substitua pelo caminho da sua imagem
-                  width: 140, // Ajuste a largura da imagem conforme necessário
-                  height: 140, // Ajuste a altura da imagem conforme necessário
-                ),
-                _buildText('Login', Colors.white, 30),
-                _buildText('Olá, seja bem-vindo(a)', Colors.white, 21),
-                _buildTextLabel('Email:', Colors.white, 300, false),
-                _buildTextLabel('Senha:', Colors.white, 300, true),
-                _buildButton('LOGIN', Color(0xFFFFF400), 300, imprime),
-                Container(
-                  width: 300,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      _buildText('Ainda não tem cadastro?' , Colors.white, 16),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => SignUp()), // Substitua "NovaTela" pelo nome da tela para a qual deseja navegar
-                          );
-                        },
-                        child: Text(
-                          'Clique aqui',
-                          style: GoogleFonts.lexendDeca(
-                              textStyle: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w400,
-                              color: Color(0xFFFFF400),
-                              decoration: TextDecoration.underline,
+          child: SingleChildScrollView(
+            child: Container(
+              height: 600,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Image.asset(
+                    'assets/et.png', // Substitua pelo caminho da sua imagem
+                    width: 140, // Ajuste a largura da imagem conforme necessário
+                    height: 140, // Ajuste a altura da imagem conforme necessário
+                  ),
+                  _buildText('Login', Colors.white, 30),
+                  _buildText('Olá, seja bem-vindo(a)', Colors.white, 21),
+                  _buildTextLabel('Email:', Colors.white, 300, false),
+                  _buildTextLabel('Senha:', Colors.white, 300, true),
+                  _buildButton('LOGIN', Color(0xFFFFF400), 300, imprime),
+                  Container(
+                    width: 300,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        _buildText('Ainda não tem cadastro?' , Colors.white, 16),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => SignUp()), // Substitua "NovaTela" pelo nome da tela para a qual deseja navegar
+                            );
+                          },
+                          child: Text(
+                            'Clique aqui',
+                            style: GoogleFonts.lexendDeca(
+                                textStyle: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400,
+                                color: Color(0xFFFFF400),
+                                decoration: TextDecoration.underline,
+                              ),
                             ),
                           ),
-                        ),
-                      ),        
-                    ],
+                        ),        
+                      ],
+                    ),
                   ),
-                ),
-                Container(
-                  width: 300,
-                  decoration: ShapeDecoration(
-                    shape: RoundedRectangleBorder(
-                      side: BorderSide(
-                        width: 1,
-                        strokeAlign: BorderSide.strokeAlignCenter,
-                        color: Color(0xFFF0F0F0),
+                  Container(
+                    width: 300,
+                    decoration: ShapeDecoration(
+                      shape: RoundedRectangleBorder(
+                        side: BorderSide(
+                          width: 1,
+                          strokeAlign: BorderSide.strokeAlignCenter,
+                          color: Color(0xFFF0F0F0),
+                        ),
                       ),
                     ),
                   ),
-                ),
-                _buildButton('Entrar sem login', Colors.white, 300, changeToCatalog),
-              ],
+                  _buildButton('Entrar sem login', Colors.white, 300, changeToCatalog),
+                ],
+              ),
             ),
           ),
         ),
