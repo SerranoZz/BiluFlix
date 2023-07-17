@@ -2,6 +2,7 @@ import 'package:catalogo_video/pages/catalog.dart';
 import 'package:catalogo_video/pages/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:catalogo_video/pages/navigation.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -20,7 +21,7 @@ class _LoginPageState extends State<LoginPage> {
   void changeToCatalog(){
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => Catalog()), // Substitua "NovaTela" pelo nome da tela para a qual deseja navegar
+      MaterialPageRoute(builder: (context) => NavBar()), // Substitua "NovaTela" pelo nome da tela para a qual deseja navegar
     );
   }
 

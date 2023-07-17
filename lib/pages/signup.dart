@@ -40,7 +40,7 @@ class _SignUpState extends State<SignUp> {
                 _buildTextLabel('Nome', Colors.white, 300, false),
                 _buildTextLabel('Email', Colors.white, 300, false),
                 _buildTextLabel('Senha', Colors.white, 300, true),
-                _buildButton('Cadastrar', Color(0xFFFFF400), 300)
+                _buildButton('CADASTRAR', Color(0xFFFFF400), 300)
               ],
             ),
           ),
