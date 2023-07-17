@@ -47,9 +47,8 @@ class _CatalogState extends State<Catalog> with SingleTickerProviderStateMixin{
                     height: MediaQuery.of(context).padding.top,
                   ),
                   Image.asset(
-                    'assets/et.png', // Substitua pelo caminho da sua imagem
-                    width: 70, // Ajuste a largura da imagem conforme necessário
-                    height: 70, // Ajuste a altura da imagem conforme necessário
+                    'assets/biluflix.png', // Substitua pelo caminho da sua imagem
+                    width: 150, // Ajuste a largura da imagem conforme necessário/ Ajuste a altura da imagem conforme necessário
                   ),
 
                   Container(
@@ -60,14 +59,14 @@ class _CatalogState extends State<Catalog> with SingleTickerProviderStateMixin{
                           padding: EdgeInsets.all(5),
                           child: TabBar(
                             unselectedLabelColor: Colors.white,
-                            indicatorColor: Colors.white,
+                            labelColor: Color(0xFFFFF400),
+                            indicatorColor: Color(0xFFFFF400),
                             indicatorWeight: 2,
                             controller: tabController,
                              labelStyle: TextStyle(
                               fontSize: 24, 
                               fontWeight: FontWeight.normal, 
                               fontFamily: 'Lexend',
-                              color: Colors.red, 
                             ),
                             tabs: [
                               Tab(
