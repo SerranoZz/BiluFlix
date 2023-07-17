@@ -1,29 +1,15 @@
-import 'package:catalogo_video/pages/catalog.dart';
-import 'package:catalogo_video/pages/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class Catalog extends StatefulWidget {
+  const Catalog({super.key});
 
   @override
-  _LoginPageState createState() => _LoginPageState();
+  State<Catalog> createState() => _CatalogState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _CatalogState extends State<Catalog> {
   @override
-
-  void imprime(){
-    print('Login');
-  }
-
-  void changeToCatalog(){
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => Catalog()), // Substitua "NovaTela" pelo nome da tela para a qual deseja navegar
-    );
-  }
-
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
@@ -42,55 +28,11 @@ class _LoginPageState extends State<LoginPage> {
               children: [
                 Image.asset(
                   'assets/et.png', // Substitua pelo caminho da sua imagem
-                  width: 140, // Ajuste a largura da imagem conforme necessário
-                  height: 140, // Ajuste a altura da imagem conforme necessário
+                  width: 70, // Ajuste a largura da imagem conforme necessário
+                  height: 70, // Ajuste a altura da imagem conforme necessário
                 ),
-                _buildText('Login', Colors.white, 30),
-                _buildText('Olá, seja bem-vindo(a)', Colors.white, 21),
-                _buildTextLabel('Email:', Colors.white, 300, false),
-                _buildTextLabel('Senha:', Colors.white, 300, true),
-                _buildButton('LOGIN', Color(0xFFFFF400), 300, imprime),
-                Container(
-                  width: 300,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      _buildText('Ainda não tem cadastro?' , Colors.white, 16),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => SignUp()), // Substitua "NovaTela" pelo nome da tela para a qual deseja navegar
-                          );
-                        },
-                        child: Text(
-                          'Clique aqui',
-                          style: GoogleFonts.lexendDeca(
-                              textStyle: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w400,
-                              color: Color(0xFFFFF400),
-                              decoration: TextDecoration.underline,
-                            ),
-                          ),
-                        ),
-                      ),        
-                    ],
-                  ),
-                ),
-                Container(
-                  width: 300,
-                  decoration: ShapeDecoration(
-                    shape: RoundedRectangleBorder(
-                      side: BorderSide(
-                        width: 1,
-                        strokeAlign: BorderSide.strokeAlignCenter,
-                        color: Color(0xFFF0F0F0),
-                      ),
-                    ),
-                  ),
-                ),
-                _buildButton('Entrar sem login', Colors.white, 300, changeToCatalog),
+
+                
               ],
             ),
           ),
@@ -159,9 +101,11 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget _buildButton(String text, Color color, double width, VoidCallback onPressed){
+  Widget _buildButton(String text, Color color, double width){
     return ElevatedButton(
-        onPressed: onPressed,
+        onPressed: () {
+          
+        },
         child: 
         Text(
           text,
