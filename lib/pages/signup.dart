@@ -27,7 +27,7 @@ class _SignUpState extends State<SignUp> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Image.asset(
-                    'assets/et.png', // Substitua pelo caminho da sua imagem
+                    'assets/logo.png', // Substitua pelo caminho da sua imagem
                     width: 140, // Ajuste a largura da imagem conforme necessário
                     height: 140, // Ajuste a altura da imagem conforme necessário
                   ),

@@ -1,3 +1,4 @@
+import 'package:catalogo_video/pages/video.dart';
 import 'package:flutter/material.dart';
 
 class Film extends StatefulWidget {
@@ -37,7 +38,14 @@ class _FilmState extends State<Film> {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           color: Colors.white,
-
+                        ),
+                        child: GestureDetector(
+                          onTap: () => {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => Video()), // Substitua "NovaTela" pelo nome da tela para a qual deseja navegar
+                            )
+                          },
                         ),
                       );
                     }

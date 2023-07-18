@@ -32,11 +32,11 @@ class _AddVideoState extends State<AddVideo> {
                           children: [
                             Padding(
                               padding: EdgeInsets.only(left: 20,top: 15),
-                              child: _buildTextLabel('Tipo:', Colors.white, 130, true),
+                              child: _buildComboBox('Tipo:', Colors.white, 130),
                             ),
                             Padding(
                               padding: EdgeInsets.only(left: 10,top: 15),
-                              child: _buildTextLabel('Gênero:', Colors.white, 210, true),
+                              child: _buildComboBox('Gênero:', Colors.white, 210),
                             ),
                           ],
                         ),
@@ -44,21 +44,21 @@ class _AddVideoState extends State<AddVideo> {
                           children: [
                             Padding(
                               padding: EdgeInsets.only(left: 20,top: 15),
-                              child: _buildTextLabel('Duração:', Colors.white, 110, true),
+                              child: _buildTextLabel('Duração:', Colors.white, 110, false),
                             ),
                             Padding(
                               padding: EdgeInsets.only(left: 10,top: 15),
-                              child: _buildTextLabel('Faixa Etária:', Colors.white, 110, true),
+                              child: _buildTextLabel('Faixa Etária:', Colors.white, 110, false),
                             ),
                             Padding(
                               padding: EdgeInsets.only(left: 10,top: 15),
-                              child: _buildTextLabel('Lançamento:', Colors.white, 110, true),
+                              child: _buildTextLabel('Lançamento:', Colors.white, 110, false),
                             ),
                           ],
                         ),
                         Padding(
                           padding: EdgeInsets.only(left: 20,top: 15),
-                          child: _buildTextLabel('URL Imagem (Thumbnail):', Colors.white, 350, true),
+                          child: _buildTextLabel('URL Imagem (Thumbnail):', Colors.white, 350, false),
                         ),
                         Padding(
                           padding: EdgeInsets.only(left: 20,top: 15),
@@ -84,7 +84,7 @@ class _AddVideoState extends State<AddVideo> {
     );
   }
 
-  Widget _buildTextLabel(String text, Color color, double width, senha){
+  Widget _buildTextLabel(String text, Color color, double width, bool senha){
     return(
       Container(
         width: width,
@@ -148,6 +148,64 @@ class _AddVideoState extends State<AddVideo> {
           fixedSize: MaterialStateProperty.all(Size(width, 40.0)),
           backgroundColor: MaterialStateProperty.all(color),
         ),
+    );
+  }
+
+  Widget _buildComboBox(String text, Color color, double width) {
+    return Container(
+      width: width,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            text,
+            style: TextStyle(
+              fontSize: 16,
+              fontFamily: 'Lexend',
+              fontWeight: FontWeight.w400,
+              color: color,
+            ),
+          ),
+
+          Container(
+            height: 40.0,
+            width: width,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5.0),
+              color: Colors.white,
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: DropdownButtonFormField<String>(
+                decoration: InputDecoration.collapsed(hintText: ''),
+                borderRadius: BorderRadius.circular(10),
+                items: [
+                  DropdownMenuItem<String>(
+                    value: 'Option 1',
+                    child: 
+                    Padding(
+                      padding: EdgeInsets.only(top: 8),
+                      child: Text(
+                        'Masculino',
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontFamily: 'Lexend',
+                            fontWeight: FontWeight.w400,
+                          ),
+                      ),
+                    ),
+                  ),
+                ],
+                onChanged: (value) {
+                  print('Item selecionado: $value');
+                },
+                value: null, 
+                isExpanded: true,
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

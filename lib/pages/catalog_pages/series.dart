@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../video.dart';
+
 class Serie extends StatefulWidget {
   const Serie({super.key});
 
@@ -37,7 +39,14 @@ class _SerieState extends State<Serie> {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           color: Colors.white,
-
+                        ),
+                        child: GestureDetector(
+                          onTap: () => {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => Video()), // Substitua "NovaTela" pelo nome da tela para a qual deseja navegar
+                            )
+                          },
                         ),
                       );
                     }
