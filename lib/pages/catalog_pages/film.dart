@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class Film extends StatefulWidget {
   const Film({super.key});
@@ -57,14 +56,12 @@ class _FilmState extends State<Film> {
   Widget _buildText(String text, Color color, double size) {
     return Text(
       text,
-      style: 
-        GoogleFonts.lexendDeca(
-          textStyle: TextStyle(
+      style: TextStyle(
           fontSize: size,
+          fontFamily: 'Lexend',
           fontWeight: FontWeight.w400,
           color: color,
         ),
-      ),
     );
   }
 }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class Serie extends StatefulWidget {
   const Serie({super.key});
@@ -57,14 +56,12 @@ class _SerieState extends State<Serie> {
   Widget _buildText(String text, Color color, double size) {
     return Text(
       text,
-      style: 
-        GoogleFonts.lexendDeca(
-          textStyle: TextStyle(
+      style:TextStyle(
           fontSize: size,
+          fontFamily: 'Lexend',
           fontWeight: FontWeight.w400,
           color: color,
         ),
-      ),
     );
   }
 }

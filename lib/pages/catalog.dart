@@ -1,9 +1,6 @@
-
 import 'package:catalogo_video/pages/catalog_pages/film.dart';
 import 'package:catalogo_video/pages/catalog_pages/series.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 
 class Catalog extends StatefulWidget {
   const Catalog({super.key});
@@ -14,7 +11,7 @@ class Catalog extends StatefulWidget {
 
 class _CatalogState extends State<Catalog> with SingleTickerProviderStateMixin{
   late TabController tabController;
-
+  
   @override
   void initState(){
     tabController = TabController(length: 2, vsync: this);
@@ -50,7 +47,6 @@ class _CatalogState extends State<Catalog> with SingleTickerProviderStateMixin{
                     'assets/biluflix.png', // Substitua pelo caminho da sua imagem
                     width: 150, // Ajuste a largura da imagem conforme necessário/ Ajuste a altura da imagem conforme necessário
                   ),
-
                   Container(
                     width: 286,
                     child: Column(
@@ -104,14 +100,13 @@ class _CatalogState extends State<Catalog> with SingleTickerProviderStateMixin{
   Widget _buildText(String text, Color color, double size) {
     return Text(
       text,
-      style: 
-        GoogleFonts.lexendDeca(
-          textStyle: TextStyle(
+      style:TextStyle(
           fontSize: size,
+          fontFamily: 'Lexend',
           fontWeight: FontWeight.w400,
           color: color,
         ),
-      ),
+
     );
   }
 
@@ -124,14 +119,12 @@ class _CatalogState extends State<Catalog> with SingleTickerProviderStateMixin{
           children: [
           Text(
             text,
-            style: 
-              GoogleFonts.lexendDeca(
-                textStyle: TextStyle(
+            style:TextStyle(
                 fontSize: 14,
+                fontFamily: 'Lexend',
                 fontWeight: FontWeight.w400,
                 color: color,
               ),
-            ),
           ),
 
           Container(
@@ -147,13 +140,12 @@ class _CatalogState extends State<Catalog> with SingleTickerProviderStateMixin{
                 contentPadding: EdgeInsets.only(left: 5),
               ),
               obscureText: senha,
-              style: GoogleFonts.lexendDeca(
-                textStyle: TextStyle(
+              style: TextStyle(
                 fontSize: 18,
+                fontFamily: 'Lexend',
                 fontWeight: FontWeight.w400,
                 color: Colors.black,
               ),
-            ),
             ),
           ),
         ]),
@@ -169,13 +161,12 @@ class _CatalogState extends State<Catalog> with SingleTickerProviderStateMixin{
         child: 
         Text(
           text,
-          style: GoogleFonts.lexendDeca(
-                textStyle: TextStyle(
+          style: TextStyle(
                 fontSize: 15,
+                fontFamily: 'Lexend',
                 fontWeight: FontWeight.bold,
                 color: Colors.black,
               ),
-            ),
         ),
 
         style: ButtonStyle(

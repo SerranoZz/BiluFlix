@@ -1,7 +1,6 @@
-import 'package:catalogo_video/pages/catalog.dart';
+
 import 'package:catalogo_video/pages/signup.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:catalogo_video/pages/navigation.dart';
 
 class LoginPage extends StatefulWidget {
@@ -43,7 +42,7 @@ class _LoginPageState extends State<LoginPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Image.asset(
-                    'assets/et.png', // Substitua pelo caminho da sua imagem
+                    'assets/logo.png', // Substitua pelo caminho da sua imagem
                     width: 140, // Ajuste a largura da imagem conforme necessário
                     height: 140, // Ajuste a altura da imagem conforme necessário
                   ),
@@ -67,14 +66,13 @@ class _LoginPageState extends State<LoginPage> {
                           },
                           child: Text(
                             'Clique aqui',
-                            style: GoogleFonts.lexendDeca(
-                                textStyle: TextStyle(
+                            style: TextStyle(
                                 fontSize: 16,
+                                fontFamily: 'Lexend',
                                 fontWeight: FontWeight.w400,
                                 color: Color(0xFFFFF400),
                                 decoration: TextDecoration.underline,
                               ),
-                            ),
                           ),
                         ),        
                       ],
@@ -105,14 +103,12 @@ class _LoginPageState extends State<LoginPage> {
   Widget _buildText(String text, Color color, double size) {
     return Text(
       text,
-      style: 
-        GoogleFonts.lexendDeca(
-          textStyle: TextStyle(
+      style:TextStyle(
           fontSize: size,
+          fontFamily: 'Lexend',
           fontWeight: FontWeight.w400,
           color: color,
         ),
-      ),
     );
   }
 
@@ -125,14 +121,12 @@ class _LoginPageState extends State<LoginPage> {
           children: [
           Text(
             text,
-            style: 
-              GoogleFonts.lexendDeca(
-                textStyle: TextStyle(
+            style:TextStyle(
                 fontSize: 14,
+                fontFamily: 'Lexend',
                 fontWeight: FontWeight.w400,
                 color: color,
               ),
-            ),
           ),
 
           Container(
@@ -148,13 +142,12 @@ class _LoginPageState extends State<LoginPage> {
                 contentPadding: EdgeInsets.only(left: 5),
               ),
               obscureText: senha,
-              style: GoogleFonts.lexendDeca(
-                textStyle: TextStyle(
+              style: TextStyle(
                 fontSize: 18,
+                fontFamily: 'Lexend',
                 fontWeight: FontWeight.w400,
                 color: Colors.black,
               ),
-            ),
             ),
           ),
         ]),
@@ -168,13 +161,12 @@ class _LoginPageState extends State<LoginPage> {
         child: 
         Text(
           text,
-          style: GoogleFonts.lexendDeca(
-                textStyle: TextStyle(
+          style: TextStyle(
                 fontSize: 15,
+                fontFamily: 'Lexend',
                 fontWeight: FontWeight.bold,
                 color: Colors.black,
               ),
-            ),
         ),
 
         style: ButtonStyle(

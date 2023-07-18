@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -54,15 +53,13 @@ class _SignUpState extends State<SignUp> {
   Widget _buildText(String text, Color color, double size) {
     return Text(
       text,
-      style: 
-        GoogleFonts.lexendDeca(
-          textStyle: TextStyle(
+      style:TextStyle(
           fontSize: size,
+          fontFamily: 'Lexend',
           fontWeight: FontWeight.w400,
           color: color,
         ),
-      ),
-    );
+      );
   }
 
   Widget _buildTextLabel(String text, Color color, double width, senha){
@@ -74,15 +71,13 @@ class _SignUpState extends State<SignUp> {
           children: [
           Text(
             text,
-            style: 
-              GoogleFonts.lexendDeca(
-                textStyle: TextStyle(
+            style: TextStyle(
                 fontSize: 14,
+                fontFamily: 'Lexend',
                 fontWeight: FontWeight.w400,
                 color: color,
               ),
             ),
-          ),
 
           Container(
             height: 40.0,
@@ -97,13 +92,12 @@ class _SignUpState extends State<SignUp> {
                 contentPadding: EdgeInsets.only(left: 5),
               ),
               obscureText: senha,
-              style: GoogleFonts.lexendDeca(
-                textStyle: TextStyle(
+              style: TextStyle(
                 fontSize: 18,
+                fontFamily: 'Lexend',
                 fontWeight: FontWeight.w400,
                 color: Colors.black,
               ),
-            ),
             ),
           ),
         ]),
@@ -119,14 +113,13 @@ class _SignUpState extends State<SignUp> {
         child: 
         Text(
           text,
-          style: GoogleFonts.lexendDeca(
-                textStyle: TextStyle(
+          style: TextStyle(
                 fontSize: 15,
+                fontFamily: 'Lexend',
                 fontWeight: FontWeight.bold,
                 color: Colors.black,
               ),
-            ),
-        ),
+          ),
 
         style: ButtonStyle(
           minimumSize: MaterialStateProperty.all(Size(width, 40.0)),
