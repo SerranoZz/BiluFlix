@@ -1,5 +1,6 @@
-import 'package:catalogo_video/DatabaseHelper.dart';
 import 'package:flutter/material.dart';
+import '../../helper/DatabaseHelper.dart';
+import '../../controller/VideoController.dart';
 
 class AddVideo extends StatefulWidget {
   const AddVideo({super.key});
@@ -11,13 +12,21 @@ class AddVideo extends StatefulWidget {
 class _AddVideoState extends State<AddVideo> {
   TextEditingController _tituloController = TextEditingController();
   TextEditingController _descricaoController = TextEditingController();
-  int tipo = 0;
-  int genero = 0;
   TextEditingController _duracaoController = TextEditingController();
   TextEditingController _faixaController = TextEditingController();
   TextEditingController _lancamentoController = TextEditingController();
   TextEditingController _urlController = TextEditingController();
+  int tipo = 0;
+  int genero = 0;
   
+  late VideoController videoController;
+
+  @override
+  void initState() {
+    super.initState();
+    videoController = VideoController();
+  }
+
   @override
   Widget build(BuildContext context) {
     DatabaseHelper baseFuncs = DatabaseHelper();
@@ -73,7 +82,7 @@ class _AddVideoState extends State<AddVideo> {
                         ),
                         Padding(
                           padding: EdgeInsets.only(left: 20,top: 15),
-                          child: _buildButton('ADICIONAR', Color(0xFFFFF400), 350, () => baseFuncs.adicionarVideo(_tituloController, _descricaoController, tipo, _faixaController, _duracaoController, _urlController, _lancamentoController, genero)),
+                          child: _buildButton('ADICIONAR', Color(0xFFFFF400), 350, () => videoController.adicionarVideo(_tituloController.text, _descricaoController.text, tipo, _faixaController.text, _duracaoController.text, _urlController.text, _lancamentoController.text, genero)),
                         ),
                       ],                    
                     )

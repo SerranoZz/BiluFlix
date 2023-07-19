@@ -1,7 +1,13 @@
 
-import 'package:catalogo_video/DatabaseHelper.dart';
+import 'package:catalogo_video/helper/DatabaseHelper.dart';
 import 'package:catalogo_video/pages/signup.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../controller/LoginController.dart';
+import '../model/user.dart';
+import 'navigation.dart';
+
+enum LoginStatus { notSignIn, signIn }
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -14,9 +20,85 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
 
+  LoginStatus _loginStatus = LoginStatus.notSignIn;
+  String? _email, _password;
+  final _formKey = GlobalKey<FormState>();
+  late LoginController controller;
+  var value;
+
+  _LoginPageState() {
+    this.controller = LoginController();
+  }
+
+  void _submit() async {
+    final form = _formKey.currentState;
+
+    if (form!.validate()) {      
+      form.save();
+
+      try{
+        User user = (await controller.getLogin(_email!, _password!)) as User;
+        if (user.id != -1) {
+          savePref(1, user.email, user.password);
+          _loginStatus = LoginStatus.signIn;
+
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => NavBar(user: user,)),
+          );
+          
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('User not registered!')),
+          );
+        }
+      } catch (e) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(e.toString())),
+          );     
+      }
+    }
+  }
+
+  signOut() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+
+    setState(() {
+      preferences.setInt("value", 0);
+      _loginStatus = LoginStatus.notSignIn;
+    });
+  }
+
+  getPref() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+
+    setState(() {
+      value = preferences.getInt("value");
+
+      _loginStatus = value == 1? LoginStatus.signIn : LoginStatus.notSignIn;
+    });
+  }
+
+  savePref(int value, String user, String pass) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+
+    setState(() {
+      preferences.setInt("value", value);
+      preferences.setString("user", user);
+      preferences.setString("pass", pass);
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getPref();
+  }
+
   @override
   Widget build(BuildContext context) {
     DatabaseHelper bancoFuncs = DatabaseHelper();
+
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -40,9 +122,17 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   _buildText('Login', Colors.white, 30),
                   _buildText('Olá, seja bem-vindo(a)', Colors.white, 21),
-                  _buildTextLabel('Email:', Colors.white, 300, false, _emailController),
-                  _buildTextLabel('Senha:', Colors.white, 300, true, _passwordController),
-                  _buildButton('LOGIN', Color(0xFFFFF400), 300, () => bancoFuncs.login(_emailController,_passwordController, context)),
+                  Form(
+                    key: _formKey,
+                    child: Column(
+                      children: [
+                        _buildTextLabel('Email:', Colors.white, 300, false, _emailController),
+                        SizedBox(height: 15,),
+                        _buildTextLabel('Senha:', Colors.white, 300, true, _passwordController),
+                      ],
+                    ),
+                  ),
+                  _buildButton('LOGIN', Color(0xFFFFF400), 300, () => _submit()),
                   Container(
                     width: 300,
                     child: Row(
@@ -82,7 +172,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                   ),
-                  _buildButton('Entrar sem login', Colors.white, 300, () => bancoFuncs.changeToCatalog(context)),
+                  //_buildButton('Entrar sem login', Colors.white, 300, () => bancoFuncs.changeToCatalog(context)),
                 ],
               ),
             ),
@@ -104,49 +194,61 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget _buildTextLabel(String text, Color color, double width, senha, controller){
-    return(
-      Container(
-        width: width,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-          Text(
-            text,
-            style:TextStyle(
-                fontSize: 14,
-                fontFamily: 'Lexend',
-                fontWeight: FontWeight.w400,
-                color: color,
-              ),
+  Widget _buildTextLabel(
+    String text, Color color, double width, bool senha, TextEditingController controller) {
+  return Container(
+    width: width,
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          text,
+          style: TextStyle(
+            fontSize: 14,
+            fontFamily: 'Lexend',
+            fontWeight: FontWeight.w400,
+            color: color,
           ),
-
-          Container(
-            height: 40.0,
-            width: width,
-            child: TextField(
-              controller: controller,
-              decoration: InputDecoration(
+        ),
+        Container(
+          height: 40.0,
+          width: width,
+          child: TextFormField(
+            controller: controller,
+            decoration: InputDecoration(
               filled: true,
               fillColor: Colors.white,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5.0),
-                ),
-                contentPadding: EdgeInsets.only(left: 5),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(5.0),
               ),
-              obscureText: senha,
-              style: TextStyle(
-                fontSize: 18,
-                fontFamily: 'Lexend',
-                fontWeight: FontWeight.w400,
-                color: Colors.black,
-              ),
+              contentPadding: EdgeInsets.only(left: 5),
             ),
+            obscureText: senha,
+            style: TextStyle(
+              fontSize: 18,
+              fontFamily: 'Lexend',
+              fontWeight: FontWeight.w400,
+              color: Colors.black,
+            ),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Campo obrigatório';
+              }
+              return null;
+            },
+            onSaved: (value) {
+              if (text == 'Email:') {
+                _email = value;
+              } else if (text == 'Senha:') {
+                _password = value;
+              }
+            },
           ),
-        ]),
-      )
-    );
-  }
+        ),
+      ],
+    ),
+  );
+}
 
   Widget _buildButton(String text, Color color, double width, VoidCallback onPressed){
     return ElevatedButton(

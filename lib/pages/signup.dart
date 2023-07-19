@@ -1,5 +1,7 @@
-import 'package:catalogo_video/DatabaseHelper.dart';
+import 'package:catalogo_video/helper/DatabaseHelper.dart';
 import 'package:flutter/material.dart';
+import '../controller/LoginController.dart';
+import '../model/user.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -12,6 +14,29 @@ class _SignUpState extends State<SignUp> {
   TextEditingController _nameController = TextEditingController();
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
+
+  late LoginController controller;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = LoginController();
+  }
+
+  void _submit() async {
+    String name = _nameController.text;
+    String email = _emailController.text;
+    String password = _passwordController.text;
+
+    User user = User(name: name, email: email, password: password);
+
+    int res = await controller.saveUser(user);
+    if (res != -1) {
+      print('Usuário salvo com sucesso!');
+    } else {
+      print('Erro ao salvar o usuário!');
+    }
+  }
   
   @override
   Widget build(BuildContext context) {
@@ -46,7 +71,7 @@ class _SignUpState extends State<SignUp> {
                   _buildTextLabel('Nome:', Colors.white, 300, false, _nameController),
                   _buildTextLabel('Email:', Colors.white, 300, false, _emailController),
                   _buildTextLabel('Senha:', Colors.white, 300, true, _passwordController),
-                  _buildButton('CADASTRAR', Color(0xFFFFF400), 300, () => bancoFuncs.cadastro(_nameController, _emailController, _passwordController, context))
+                  _buildButton('CADASTRAR', Color(0xFFFFF400), 300, _submit),
                 ],
               ),
             ),
