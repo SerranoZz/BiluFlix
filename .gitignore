@@ -4,6 +4,9 @@
 # Exceto as pastas assets e lib
 !assets/
 !lib/
+!lib/controller
+!lib/helper
+!lib/model
 
 # Exceto o arquivo pubspec.yaml
 !pubspec.yaml
