@@ -16,8 +16,8 @@ class _AddVideoState extends State<AddVideo> {
   TextEditingController _faixaController = TextEditingController();
   TextEditingController _lancamentoController = TextEditingController();
   TextEditingController _urlController = TextEditingController();
-  int tipo = 0;
-  int genero = 0;
+  TextEditingController _tipo = TextEditingController();
+  TextEditingController _genero = TextEditingController();
   
   late VideoController videoController;
 
@@ -52,11 +52,11 @@ class _AddVideoState extends State<AddVideo> {
                           children: [
                             Padding(
                               padding: EdgeInsets.only(left: 20,top: 15),
-                              child: _buildComboBox('Tipo:', Colors.white, 130, tipo),
+                              child: _buildTextLabel('Tipo:', Colors.white, 130, false, _tipo),
                             ),
                             Padding(
                               padding: EdgeInsets.only(left: 10,top: 15),
-                              child: _buildComboBox('Gênero:', Colors.white, 210, genero),
+                              child: _buildTextLabel('Gênero:', Colors.white, 210, false, _genero),
                             ),
                           ],
                         ),
@@ -82,7 +82,7 @@ class _AddVideoState extends State<AddVideo> {
                         ),
                         Padding(
                           padding: EdgeInsets.only(left: 20,top: 15),
-                          child: _buildButton('ADICIONAR', Color(0xFFFFF400), 350, () => videoController.adicionarVideo(_tituloController.text, _descricaoController.text, tipo, _faixaController.text, _duracaoController.text, _urlController.text, _lancamentoController.text, genero)),
+                          child: _buildButton('ADICIONAR', Color(0xFFFFF400), 350, () => videoController.adicionarVideo(_tituloController, _descricaoController, _tipo, _faixaController, _duracaoController, _urlController, _lancamentoController, _genero)),
                         ),
                       ],                    
                     )
