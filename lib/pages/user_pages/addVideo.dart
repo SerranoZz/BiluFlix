@@ -1,3 +1,4 @@
+import 'package:catalogo_video/DatabaseHelper.dart';
 import 'package:flutter/material.dart';
 
 class AddVideo extends StatefulWidget {
@@ -8,8 +9,18 @@ class AddVideo extends StatefulWidget {
 }
 
 class _AddVideoState extends State<AddVideo> {
+  TextEditingController _tituloController = TextEditingController();
+  TextEditingController _descricaoController = TextEditingController();
+  int tipo = 0;
+  int genero = 0;
+  TextEditingController _duracaoController = TextEditingController();
+  TextEditingController _faixaController = TextEditingController();
+  TextEditingController _lancamentoController = TextEditingController();
+  TextEditingController _urlController = TextEditingController();
+  
   @override
   Widget build(BuildContext context) {
+    DatabaseHelper baseFuncs = DatabaseHelper();
     return Scaffold(
       backgroundColor: Color.fromARGB(0, 0, 0, 0),
       body: Container(      
@@ -22,21 +33,21 @@ class _AddVideoState extends State<AddVideo> {
                       children: [
                         Padding(
                           padding: EdgeInsets.only(left: 20, top: 15),
-                          child: _buildTextLabel('Título:', Colors.white, 350, false),
+                          child: _buildTextLabel('Título:', Colors.white, 350, false, _tituloController),
                         ),
                         Padding(
                           padding: EdgeInsets.only(left: 20,top: 15),
-                          child: _buildTextLabel('Descrição:', Colors.white, 350, false),
+                          child: _buildTextLabel('Descrição:', Colors.white, 350, false, _descricaoController),
                         ),
                         Row(
                           children: [
                             Padding(
                               padding: EdgeInsets.only(left: 20,top: 15),
-                              child: _buildComboBox('Tipo:', Colors.white, 130),
+                              child: _buildComboBox('Tipo:', Colors.white, 130, tipo),
                             ),
                             Padding(
                               padding: EdgeInsets.only(left: 10,top: 15),
-                              child: _buildComboBox('Gênero:', Colors.white, 210),
+                              child: _buildComboBox('Gênero:', Colors.white, 210, genero),
                             ),
                           ],
                         ),
@@ -44,25 +55,25 @@ class _AddVideoState extends State<AddVideo> {
                           children: [
                             Padding(
                               padding: EdgeInsets.only(left: 20,top: 15),
-                              child: _buildTextLabel('Duração:', Colors.white, 110, false),
+                              child: _buildTextLabel('Duração:', Colors.white, 110, false, _duracaoController),
                             ),
                             Padding(
                               padding: EdgeInsets.only(left: 10,top: 15),
-                              child: _buildTextLabel('Faixa Etária:', Colors.white, 110, false),
+                              child: _buildTextLabel('Faixa Etária:', Colors.white, 110, false, _faixaController),
                             ),
                             Padding(
                               padding: EdgeInsets.only(left: 10,top: 15),
-                              child: _buildTextLabel('Lançamento:', Colors.white, 110, false),
+                              child: _buildTextLabel('Lançamento:', Colors.white, 110, false, _lancamentoController),
                             ),
                           ],
                         ),
                         Padding(
                           padding: EdgeInsets.only(left: 20,top: 15),
-                          child: _buildTextLabel('URL Imagem (Thumbnail):', Colors.white, 350, false),
+                          child: _buildTextLabel('URL Imagem (Thumbnail):', Colors.white, 350, false, _urlController),
                         ),
                         Padding(
                           padding: EdgeInsets.only(left: 20,top: 15),
-                          child: _buildButton('ADICIONAR', Color(0xFFFFF400), 350),
+                          child: _buildButton('ADICIONAR', Color(0xFFFFF400), 350, () => baseFuncs.adicionarVideo(_tituloController, _descricaoController, tipo, _faixaController, _duracaoController, _urlController, _lancamentoController, genero)),
                         ),
                       ],                    
                     )
@@ -84,7 +95,7 @@ class _AddVideoState extends State<AddVideo> {
     );
   }
 
-  Widget _buildTextLabel(String text, Color color, double width, bool senha){
+  Widget _buildTextLabel(String text, Color color, double width, bool senha, controller){
     return(
       Container(
         width: width,
@@ -105,6 +116,7 @@ class _AddVideoState extends State<AddVideo> {
             height: 40.0,
             width: width,
             child: TextField(
+              controller: controller,
               decoration: InputDecoration(
               filled: true,
               fillColor: Colors.white,
@@ -127,11 +139,9 @@ class _AddVideoState extends State<AddVideo> {
     );
   }
 
-  Widget _buildButton(String text, Color color, double width){
+  Widget _buildButton(String text, Color color, double width, onPressed){
     return ElevatedButton(
-        onPressed: () {
-          
-        },
+        onPressed: onPressed,
         child: 
         Text(
           text,
@@ -151,7 +161,7 @@ class _AddVideoState extends State<AddVideo> {
     );
   }
 
-  Widget _buildComboBox(String text, Color color, double width) {
+  Widget _buildComboBox(String text, Color color, double width, valor) {
     return Container(
       width: width,
       child: Column(
@@ -197,7 +207,7 @@ class _AddVideoState extends State<AddVideo> {
                   ),
                 ],
                 onChanged: (value) {
-                  print('Item selecionado: $value');
+                  valor=value;
                 },
                 value: null, 
                 isExpanded: true,

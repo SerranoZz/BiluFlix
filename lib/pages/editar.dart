@@ -1,5 +1,3 @@
-import 'package:catalogo_video/pages/user_pages/addVideo.dart';
-import 'package:catalogo_video/pages/user_pages/myVideos.dart';
 import 'package:flutter/material.dart';
 
 class Editar extends StatefulWidget {

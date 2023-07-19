@@ -1,12 +1,14 @@
-com.example.catalogo_video.app-jetified-window-java-1.0.0-beta04-0 C:\Users\lucas\.gradle\caches\transforms-3\006d93cd422dbc43e89591147c2de572\transformed\jetified-window-java-1.0.0-beta04\res
-com.example.catalogo_video.app-core-1.6.0-1 C:\Users\lucas\.gradle\caches\transforms-3\4ca28c4a71705f8a687c69dda140a277\transformed\core-1.6.0\res
-com.example.catalogo_video.app-jetified-annotation-experimental-1.1.0-2 C:\Users\lucas\.gradle\caches\transforms-3\8965c941cf4bee4d72541b965c7c9d39\transformed\jetified-annotation-experimental-1.1.0\res
-com.example.catalogo_video.app-jetified-window-1.0.0-beta04-3 C:\Users\lucas\.gradle\caches\transforms-3\dee59bb480020f42d53c2ea15e4501f7\transformed\jetified-window-1.0.0-beta04\res
-com.example.catalogo_video.app-debug-4 C:\Users\lucas\Desktop\dm\catalogo_video\android\app\src\debug\res
-com.example.catalogo_video.app-main-5 C:\Users\lucas\Desktop\dm\catalogo_video\android\app\src\main\res
-com.example.catalogo_video.app-pngs-6 C:\Users\lucas\Desktop\dm\catalogo_video\build\app\generated\res\pngs\debug
-com.example.catalogo_video.app-resValues-7 C:\Users\lucas\Desktop\dm\catalogo_video\build\app\generated\res\resValues\debug
-com.example.catalogo_video.app-rs-8 C:\Users\lucas\Desktop\dm\catalogo_video\build\app\generated\res\rs\debug
-com.example.catalogo_video.app-mergeDebugResources-9 C:\Users\lucas\Desktop\dm\catalogo_video\build\app\intermediates\incremental\debug\mergeDebugResources\merged.dir
-com.example.catalogo_video.app-mergeDebugResources-10 C:\Users\lucas\Desktop\dm\catalogo_video\build\app\intermediates\incremental\debug\mergeDebugResources\stripped.dir
-com.example.catalogo_video.app-merged_res-11 C:\Users\lucas\Desktop\dm\catalogo_video\build\app\intermediates\merged_res\debug
+com.example.catalogo_video.app-jetified-window-1.0.0-beta04-0 C:\Users\JM\.gradle\caches\transforms-3\25cee5f028ac2a6b79fd6278ff5b59e2\transformed\jetified-window-1.0.0-beta04\res
+com.example.catalogo_video.app-jetified-annotation-experimental-1.1.0-1 C:\Users\JM\.gradle\caches\transforms-3\6c0c163cc77ae6c91f9f7dfcd179c29c\transformed\jetified-annotation-experimental-1.1.0\res
+com.example.catalogo_video.app-core-1.6.0-2 C:\Users\JM\.gradle\caches\transforms-3\7e9df2ac2213a6bd3cef0f2f27870d79\transformed\core-1.6.0\res
+com.example.catalogo_video.app-jetified-window-java-1.0.0-beta04-3 C:\Users\JM\.gradle\caches\transforms-3\ae81e06d24c799147c26814497a2a305\transformed\jetified-window-java-1.0.0-beta04\res
+com.example.catalogo_video.app-debug-4 C:\Users\JM\Documents\estudos\lab\Nova pasta\catalogo_video\android\app\src\debug\res
+com.example.catalogo_video.app-main-5 C:\Users\JM\Documents\estudos\lab\Nova pasta\catalogo_video\android\app\src\main\res
+com.example.catalogo_video.app-pngs-6 C:\Users\JM\Documents\estudos\lab\Nova pasta\catalogo_video\build\app\generated\res\pngs\debug
+com.example.catalogo_video.app-resValues-7 C:\Users\JM\Documents\estudos\lab\Nova pasta\catalogo_video\build\app\generated\res\resValues\debug
+com.example.catalogo_video.app-rs-8 C:\Users\JM\Documents\estudos\lab\Nova pasta\catalogo_video\build\app\generated\res\rs\debug
+com.example.catalogo_video.app-mergeDebugResources-9 C:\Users\JM\Documents\estudos\lab\Nova pasta\catalogo_video\build\app\intermediates\incremental\debug\mergeDebugResources\merged.dir
+com.example.catalogo_video.app-mergeDebugResources-10 C:\Users\JM\Documents\estudos\lab\Nova pasta\catalogo_video\build\app\intermediates\incremental\debug\mergeDebugResources\stripped.dir
+com.example.catalogo_video.app-merged_res-11 C:\Users\JM\Documents\estudos\lab\Nova pasta\catalogo_video\build\app\intermediates\merged_res\debug
+com.example.catalogo_video.app-packaged_res-12 C:\Users\JM\Documents\estudos\lab\Nova pasta\catalogo_video\build\path_provider_android\intermediates\packaged_res\debug
+com.example.catalogo_video.app-packaged_res-13 C:\Users\JM\Documents\estudos\lab\Nova pasta\catalogo_video\build\sqflite\intermediates\packaged_res\debug

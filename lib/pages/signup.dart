@@ -1,3 +1,4 @@
+import 'package:catalogo_video/DatabaseHelper.dart';
 import 'package:flutter/material.dart';
 
 class SignUp extends StatefulWidget {
@@ -8,8 +9,13 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
+  TextEditingController _nameController = TextEditingController();
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+  
   @override
   Widget build(BuildContext context) {
+    DatabaseHelper bancoFuncs = DatabaseHelper();
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -37,10 +43,10 @@ class _SignUpState extends State<SignUp> {
                       _buildText('É rápido e fácil!', Colors.white, 16),
                     ],),
                   ),
-                  _buildTextLabel('Nome:', Colors.white, 300, false),
-                  _buildTextLabel('Email:', Colors.white, 300, false),
-                  _buildTextLabel('Senha:', Colors.white, 300, true),
-                  _buildButton('CADASTRAR', Color(0xFFFFF400), 300)
+                  _buildTextLabel('Nome:', Colors.white, 300, false, _nameController),
+                  _buildTextLabel('Email:', Colors.white, 300, false, _emailController),
+                  _buildTextLabel('Senha:', Colors.white, 300, true, _passwordController),
+                  _buildButton('CADASTRAR', Color(0xFFFFF400), 300, () => bancoFuncs.cadastro(_nameController, _emailController, _passwordController, context))
                 ],
               ),
             ),
@@ -62,7 +68,7 @@ class _SignUpState extends State<SignUp> {
       );
   }
 
-  Widget _buildTextLabel(String text, Color color, double width, senha){
+  Widget _buildTextLabel(String text, Color color, double width, senha, controller){
     return(
       Container(
         width: width,
@@ -83,6 +89,7 @@ class _SignUpState extends State<SignUp> {
             height: 40.0,
             width: width,
             child: TextField(
+              controller: controller,
               decoration: InputDecoration(
               filled: true,
               fillColor: Colors.white,
@@ -105,11 +112,9 @@ class _SignUpState extends State<SignUp> {
     );
   }
 
-  Widget _buildButton(String text, Color color, double width){
+  Widget _buildButton(String text, Color color, double width, VoidCallback onPressed){
     return ElevatedButton(
-        onPressed: () {
-          
-        },
+        onPressed: onPressed,
         child: 
         Text(
           text,

@@ -1,7 +1,7 @@
 
+import 'package:catalogo_video/DatabaseHelper.dart';
 import 'package:catalogo_video/pages/signup.dart';
 import 'package:flutter/material.dart';
-import 'package:catalogo_video/pages/navigation.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -11,20 +11,12 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+
   @override
-
-  void imprime(){
-    print('Login');
-  }
-
-  void changeToCatalog(){
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => NavBar()), // Substitua "NovaTela" pelo nome da tela para a qual deseja navegar
-    );
-  }
-
   Widget build(BuildContext context) {
+    DatabaseHelper bancoFuncs = DatabaseHelper();
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -48,9 +40,9 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   _buildText('Login', Colors.white, 30),
                   _buildText('Olá, seja bem-vindo(a)', Colors.white, 21),
-                  _buildTextLabel('Email:', Colors.white, 300, false),
-                  _buildTextLabel('Senha:', Colors.white, 300, true),
-                  _buildButton('LOGIN', Color(0xFFFFF400), 300, imprime),
+                  _buildTextLabel('Email:', Colors.white, 300, false, _emailController),
+                  _buildTextLabel('Senha:', Colors.white, 300, true, _passwordController),
+                  _buildButton('LOGIN', Color(0xFFFFF400), 300, () => bancoFuncs.login(_emailController,_passwordController, context)),
                   Container(
                     width: 300,
                     child: Row(
@@ -90,7 +82,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                   ),
-                  _buildButton('Entrar sem login', Colors.white, 300, changeToCatalog),
+                  _buildButton('Entrar sem login', Colors.white, 300, () => bancoFuncs.changeToCatalog(context)),
                 ],
               ),
             ),
@@ -112,7 +104,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget _buildTextLabel(String text, Color color, double width, senha){
+  Widget _buildTextLabel(String text, Color color, double width, senha, controller){
     return(
       Container(
         width: width,
@@ -133,6 +125,7 @@ class _LoginPageState extends State<LoginPage> {
             height: 40.0,
             width: width,
             child: TextField(
+              controller: controller,
               decoration: InputDecoration(
               filled: true,
               fillColor: Colors.white,
