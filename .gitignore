@@ -2,8 +2,11 @@
 *
 
 # Exceto as pastas assets e lib
-!assets/**
-!lib/**
+!assets/
+
+# Não ignorar a pasta lib e seu conteúdo
+!lib/
+!lib/**/*
 
 # Exceto o arquivo pubspec.yaml
 !pubspec.yaml
