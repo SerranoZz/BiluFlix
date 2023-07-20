@@ -1,19 +1,50 @@
+import 'package:catalogo_video/controller/VideoController.dart';
+import 'package:catalogo_video/pages/video.dart';
 import 'package:flutter/material.dart';
+import '../helper/DatabaseHelper.dart';
+import '../model/user.dart';
 
 class Editar extends StatefulWidget {
-  const Editar({super.key});
+  final List<dynamic> video;
+  final int index;
+  final User user;
+
+  const Editar({required this.video, required this.index, required this.user});
 
   @override
   State<Editar> createState() => _EditarState();
 }
 
 class _EditarState extends State<Editar> with SingleTickerProviderStateMixin{
+  TextEditingController _tituloController = TextEditingController();
+  TextEditingController _descricaoController = TextEditingController();
+  TextEditingController _duracaoController = TextEditingController();
+  TextEditingController _faixaController = TextEditingController();
+  TextEditingController _lancamentoController = TextEditingController();
+  TextEditingController _urlController = TextEditingController();
+  TextEditingController _tipo = TextEditingController();
+  TextEditingController _genero = TextEditingController();
+
+  late VideoController videoController;
   late TabController tabController;
   
+  funcao() async{
+    _tituloController.text = widget.video[this.widget.index]['name'];
+    _descricaoController.text = widget.video[this.widget.index]['description'];
+    _duracaoController.text = widget.video[this.widget.index]['durationMinutes'].toString();
+    _faixaController.text = widget.video[this.widget.index]['ageRestriction'];
+    _lancamentoController.text = widget.video[this.widget.index]['releaseDate'];
+    _urlController.text = widget.video[this.widget.index]['thumbnailImageId'];
+    _tipo.text = widget.video[this.widget.index]['type'].toString();
+  }
+
   @override
   void initState(){
     tabController = TabController(length: 2, vsync: this);
     super.initState();
+    funcao();
+    videoController = VideoController();
+    print(this.widget.video);
   }
   
   @override
@@ -21,6 +52,7 @@ class _EditarState extends State<Editar> with SingleTickerProviderStateMixin{
     tabController.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,7 +90,7 @@ class _EditarState extends State<Editar> with SingleTickerProviderStateMixin{
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(10),
                                 child: Image.network(
-                                  'https://images-na.ssl-images-amazon.com/images/S/pv-target-images/bb73c913cae027a8d4b2f81e076b70c7b07dcee75d686417c5dd032dc773210c._RI_TTW_.jpg',
+                                  widget.video[this.widget.index]['thumbnailImageId'],
                                   fit: BoxFit.cover,
                                 ),
                               ),
@@ -70,19 +102,19 @@ class _EditarState extends State<Editar> with SingleTickerProviderStateMixin{
 
                         Column(      
                           children: [
-                            _buildTextLabel('Título:', Colors.white, 350, 40, false),
+                            _buildTextLabel('Título:', Colors.white, 350, 40, false, _tituloController),
                             SizedBox(height: 15),
-                            _buildTextLabel('Descrição:', Colors.white, 350, 40,false),
+                            _buildTextLabel('Descrição:', Colors.white, 350, 40, false, _descricaoController),
                             SizedBox(height: 15),
                             Row(
                               children: [
                                 Padding(
                                   padding: EdgeInsets.only(left: 20),
-                                  child: _buildComboBox('Tipo:', Colors.white, 130),
+                                  child: _buildTextLabel('Tipo:', Colors.white, 130, 40, false, _tipo),
                                 ),
                                 Padding(
                                   padding: EdgeInsets.only(left: 10),
-                                  child: _buildComboBox('Gênero:', Colors.white, 210),
+                                  child: _buildTextLabel('Gênero:', Colors.white, 210, 40, false, _genero),
                                 ),
                               ],
                             ),
@@ -91,33 +123,31 @@ class _EditarState extends State<Editar> with SingleTickerProviderStateMixin{
                               children: [
                                 Padding(
                                   padding: EdgeInsets.only(left: 20),
-                                  child: _buildTextLabel('Duração:', Colors.white, 110, 40,false),
+                                  child: _buildTextLabel('Duração:', Colors.white, 110, 40, false, _duracaoController),
                                 ),
                                 Padding(
                                   padding: EdgeInsets.only(left: 10),
-                                  child: _buildTextLabel('Faixa Etária:', Colors.white, 110, 40,false),
+                                  child: _buildTextLabel('Faixa Etária:', Colors.white, 110, 40, false, _faixaController),
                                 ),
                                 Padding(
                                   padding: EdgeInsets.only(left: 10),
-                                  child: _buildTextLabel('Lançamento:', Colors.white, 110, 40,false),
+                                  child: _buildTextLabel('Lançamento:', Colors.white, 110, 40, false, _lancamentoController),
                                 ),
                               ],
                             ),
                             SizedBox(height: 15),
-                            _buildTextLabel('URL Imagem (Thumbnail):', Colors.white, 350, 40,false),
+                            _buildTextLabel('URL Imagem (Thumbnail):', Colors.white, 350, 40, false, _urlController),
                             SizedBox(height: 10),
-                            _buildButton('ADICIONAR', Color(0xFFFFF400), 350),
+                            _buildButton('ATUALIZAR', Color(0xFFFFF400), 350, () => videoController.atualizarVideo(widget.video[widget.index]["id"],_tituloController, _descricaoController, _tipo, _faixaController, _duracaoController, _urlController, _lancamentoController, _genero, context, widget.user)),
                             SizedBox(height: 15),
                           ],
-                        ),
-                        
+                        ),                  
                       ],                    
                     )
             ),
           ),
         ),
       ),
-        
       ),
     );
   }
@@ -134,7 +164,7 @@ class _EditarState extends State<Editar> with SingleTickerProviderStateMixin{
     );
   }
 
-  Widget _buildTextLabel(String text, Color color, double width, double height, bool senha){
+  Widget _buildTextLabel(String text, Color color, double width, double height, bool senha, controller){
     return(
       Container(
         width: width,
@@ -155,6 +185,7 @@ class _EditarState extends State<Editar> with SingleTickerProviderStateMixin{
             height: height,
             width: width,
             child: TextField(
+              controller: controller,
               decoration: InputDecoration(
               filled: true,
               fillColor: Colors.white,
@@ -177,11 +208,9 @@ class _EditarState extends State<Editar> with SingleTickerProviderStateMixin{
     );
   }
 
-  Widget _buildButton(String text, Color color, double width){
+  Widget _buildButton(String text, Color color, double width, onPressed){
     return ElevatedButton(
-        onPressed: () {
-          
-        },
+        onPressed: onPressed,
         child: 
         Text(
           text,
@@ -231,7 +260,7 @@ class _EditarState extends State<Editar> with SingleTickerProviderStateMixin{
                 borderRadius: BorderRadius.circular(10),
                 items: [
                   DropdownMenuItem<String>(
-                    value: 'Option 1',
+                    value: '1',
                     child: 
                     Padding(
                       padding: EdgeInsets.only(top: 8),

@@ -1,4 +1,5 @@
-
+import 'package:catalogo_video/pages/login.dart';
+import 'package:catalogo_video/pages/signup.dart';
 import 'package:catalogo_video/pages/userpage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
@@ -7,10 +8,12 @@ import '../model/user.dart';
 import 'catalog.dart';
 
 class NavBar extends StatefulWidget {
-  final User user;
+  final User? user; // Make user nullable
+  final int id;
 
   NavBar({
-    required this.user,
+    this.user, // Make user parameter optional with a default value of null
+    required this.id,
   });
 
   @override
@@ -19,17 +22,26 @@ class NavBar extends StatefulWidget {
 
 class _NavBarState extends State<NavBar> {
   @override
-  int _currentIndex = 0;
-
+  
   final List<Widget> _pages = [];
 
   @override
   Widget build(BuildContext context) {
+
+    int _currentIndex = widget.id;
+
     _pages.clear();
-    _pages.addAll([
-      Catalog(),
-      UserPage(user: widget.user),
-    ]);
+    if(widget.user != null){
+      _pages.addAll([
+        Catalog(),
+        UserPage(user: widget.user!),
+      ]);
+    }else{
+      _pages.addAll([
+        Catalog(),
+        LoginPage(),
+      ]);
+    }
 
     return Scaffold(
       body: _pages[_currentIndex],
@@ -52,7 +64,7 @@ class _NavBarState extends State<NavBar> {
               label: '',
             ),
             BottomNavigationBarItem(
-              icon: Padding(padding: EdgeInsets.only(top: 13), child: Icon(Feather.user)),
+              icon: Padding(padding: EdgeInsets.only(top: 13), child: Icon(widget.user != null ? Feather.user : Feather.log_in)),
               label: '',
             ),
           ],

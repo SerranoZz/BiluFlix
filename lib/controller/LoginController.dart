@@ -1,8 +1,5 @@
-
-import 'package:flutter/material.dart';
 import '../helper/DatabaseHelper.dart';
 import '../model/user.dart';
-import '../pages/login.dart';
 
 class LoginController {
   DatabaseHelper con = DatabaseHelper();
@@ -12,7 +9,7 @@ class LoginController {
     int res = await db.insert('user', user.toMap());
     return res;
   }
-
+  
   Future<int> deleteUser(User user) async {
     var db = await con.db;
     int res = await db.delete("user", where: "id = ?", whereArgs: [user.id]);
@@ -31,7 +28,7 @@ class LoginController {
       return User.fromMap(res.first);
     }
     
-    return User(id: -1, email: "", password: "", name: "");
+    return User(id: -1, name: "", email: "", password: "");
   }
 
   Future<List<User>> getAllUser() async {
@@ -43,4 +40,5 @@ class LoginController {
         
     return list;
   }
+  
 }

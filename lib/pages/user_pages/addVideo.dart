@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import '../../helper/DatabaseHelper.dart';
 import '../../controller/VideoController.dart';
+import '../../model/user.dart';
 
 class AddVideo extends StatefulWidget {
-  const AddVideo({super.key});
+  final User user;
+
+  AddVideo({required this.user});
 
   @override
   State<AddVideo> createState() => _AddVideoState();
@@ -29,7 +32,6 @@ class _AddVideoState extends State<AddVideo> {
 
   @override
   Widget build(BuildContext context) {
-    DatabaseHelper baseFuncs = DatabaseHelper();
     return Scaffold(
       backgroundColor: Color.fromARGB(0, 0, 0, 0),
       body: Container(      
@@ -42,21 +44,21 @@ class _AddVideoState extends State<AddVideo> {
                       children: [
                         Padding(
                           padding: EdgeInsets.only(left: 20, top: 15),
-                          child: _buildTextLabel('Título:', Colors.white, 350, false, _tituloController),
+                          child: _buildTextLabel('Título:', Colors.white, 350, false, _tituloController, "Vingadores: Ultimato"),
                         ),
                         Padding(
                           padding: EdgeInsets.only(left: 20,top: 15),
-                          child: _buildTextLabel('Descrição:', Colors.white, 350, false, _descricaoController),
+                          child: _buildTextLabel('Descrição:', Colors.white, 350, false, _descricaoController, "Após Thanos eliminar metade..."),
                         ),
                         Row(
                           children: [
                             Padding(
                               padding: EdgeInsets.only(left: 20,top: 15),
-                              child: _buildTextLabel('Tipo:', Colors.white, 130, false, _tipo),
+                              child: _buildTextLabel('Tipo:', Colors.white, 130, false, _tipo, "Filme"),
                             ),
                             Padding(
                               padding: EdgeInsets.only(left: 10,top: 15),
-                              child: _buildTextLabel('Gênero:', Colors.white, 210, false, _genero),
+                              child: _buildTextLabel('Gênero:', Colors.white, 210, false, _genero, "Aventura"),
                             ),
                           ],
                         ),
@@ -64,25 +66,25 @@ class _AddVideoState extends State<AddVideo> {
                           children: [
                             Padding(
                               padding: EdgeInsets.only(left: 20,top: 15),
-                              child: _buildTextLabel('Duração:', Colors.white, 110, false, _duracaoController),
+                              child: _buildTextLabel('Duração:', Colors.white, 110, false, _duracaoController, "182"),
                             ),
                             Padding(
                               padding: EdgeInsets.only(left: 10,top: 15),
-                              child: _buildTextLabel('Faixa Etária:', Colors.white, 110, false, _faixaController),
+                              child: _buildTextLabel('Faixa Etária:', Colors.white, 110, false, _faixaController, "12"),
                             ),
                             Padding(
                               padding: EdgeInsets.only(left: 10,top: 15),
-                              child: _buildTextLabel('Lançamento:', Colors.white, 110, false, _lancamentoController),
+                              child: _buildTextLabel('Lançamento:', Colors.white, 110, false, _lancamentoController, "25/04/2019"),
                             ),
                           ],
                         ),
                         Padding(
                           padding: EdgeInsets.only(left: 20,top: 15),
-                          child: _buildTextLabel('URL Imagem (Thumbnail):', Colors.white, 350, false, _urlController),
+                          child: _buildTextLabel('URL Imagem (Thumbnail):', Colors.white, 350, false, _urlController, "Url da imagem"),
                         ),
                         Padding(
                           padding: EdgeInsets.only(left: 20,top: 15),
-                          child: _buildButton('ADICIONAR', Color(0xFFFFF400), 350, () => videoController.adicionarVideo(_tituloController, _descricaoController, _tipo, _faixaController, _duracaoController, _urlController, _lancamentoController, _genero)),
+                          child: _buildButton('ADICIONAR', Color(0xFFFFF400), 350, () => videoController.adicionarVideo(widget.user.id, _tituloController, _descricaoController, _tipo, _faixaController, _duracaoController, _urlController, _lancamentoController, _genero)),
                         ),
                       ],                    
                     )
@@ -92,6 +94,7 @@ class _AddVideoState extends State<AddVideo> {
       ),
     );
   }
+
   Widget _buildText(String text, Color color, double size) {
     return Text(
       text,
@@ -104,7 +107,7 @@ class _AddVideoState extends State<AddVideo> {
     );
   }
 
-  Widget _buildTextLabel(String text, Color color, double width, bool senha, controller){
+  Widget _buildTextLabel(String text, Color color, double width, bool senha, controller, String hintText){
     return(
       Container(
         width: width,
@@ -129,6 +132,7 @@ class _AddVideoState extends State<AddVideo> {
               decoration: InputDecoration(
               filled: true,
               fillColor: Colors.white,
+              hintText: hintText,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(5.0),
                 ),

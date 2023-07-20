@@ -1,15 +1,37 @@
 import 'package:catalogo_video/pages/editar.dart';
 import 'package:flutter/material.dart';
 
+import '../../controller/VideoController.dart';
+import '../../model/user.dart';
+
 class MyVideos extends StatefulWidget {
-  const MyVideos({super.key});
+  final User user;
+  const MyVideos({required this.user});
 
   @override
   State<MyVideos> createState() => _MyVideosState();
 }
 
 class _MyVideosState extends State<MyVideos> {
-  List<String> labels = ['0','1','2','3'];
+  List<dynamic> labels = [];
+
+  late VideoController videoController;
+
+  @override
+  void initState() {
+    super.initState();
+    videoController = VideoController();
+    _loadVideos();
+  }
+
+  Future<void> _loadVideos() async {
+  List<dynamic> videos = await videoController.meusVideos(widget.user.id);
+  setState(() {
+    this.labels=videos;
+  });
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -65,17 +87,18 @@ class _MyVideosState extends State<MyVideos> {
                     TextButton(
                       onPressed: () {
                         Navigator.pop(context);
-                        //_list();
+                        _loadVideos();
                       },
                       child: Text("Cancelar"),
                     ),
                     TextButton(
                       onPressed: () {
-                        //_deleteById(_taskList[index].id);
-                        setState(() {
-                          //_taskList.removeAt(index);
-                        });
                         Navigator.pop(context);
+                        videoController.deleteById(this.labels[index]["id"]);
+                        setState(() {
+                          this.labels.removeAt(index);
+                        });
+                        
                       },
                       child: Text("Excluir"),
                     ),
@@ -87,7 +110,7 @@ class _MyVideosState extends State<MyVideos> {
         } else if (direction == DismissDirection.startToEnd) {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => Editar()), // Substitua "NovaTela" pelo nome da tela para a qual deseja navegar
+            MaterialPageRoute(builder: (context) => Editar(video: labels,index: index, user: widget.user,)), // Substitua "NovaTela" pelo nome da tela para a qual deseja navegar
           );
         }
       }, 
@@ -146,7 +169,7 @@ class _MyVideosState extends State<MyVideos> {
                   bottomLeft: Radius.circular(10.0)
                 ),
                 child: Image.network(
-                  'https://images-na.ssl-images-amazon.com/images/S/pv-target-images/bb73c913cae027a8d4b2f81e076b70c7b07dcee75d686417c5dd032dc773210c._RI_TTW_.jpg',
+                  this.labels[index]["thumbnailImageId"],
                   fit: BoxFit.cover,
                 ),
               ),
@@ -158,7 +181,7 @@ class _MyVideosState extends State<MyVideos> {
                 BoxConstraints(
                   maxWidth: 200, // Defina o valor máximo de largura desejado
                 ),
-                child: _buildText('Uncharted: Fora do Mapa', Colors.white, 18),
+                child: _buildText(this.labels[index]["name"], Colors.white, 18),
               ),
             ),
           ],

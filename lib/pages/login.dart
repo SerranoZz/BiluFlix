@@ -1,4 +1,3 @@
-
 import 'package:catalogo_video/helper/DatabaseHelper.dart';
 import 'package:catalogo_video/pages/signup.dart';
 import 'package:flutter/material.dart';
@@ -44,12 +43,12 @@ class _LoginPageState extends State<LoginPage> {
 
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => NavBar(user: user,)),
+            MaterialPageRoute(builder: (context) => NavBar(user: user, id: 0)),
           );
           
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('User not registered!')),
+            const SnackBar(content: Text('Usuário não registrado!')),
           );
         }
       } catch (e) {
@@ -87,6 +86,13 @@ class _LoginPageState extends State<LoginPage> {
       preferences.setString("user", user);
       preferences.setString("pass", pass);
     });
+  }
+
+  void changeToCatalog(BuildContext context){;
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => NavBar(id: 0)),
+    );
   }
 
   @override
@@ -172,7 +178,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                   ),
-                  //_buildButton('Entrar sem login', Colors.white, 300, () => bancoFuncs.changeToCatalog(context)),
+                  _buildButton('Entrar sem login', Colors.white, 300, () => changeToCatalog(context)),
                 ],
               ),
             ),

@@ -1,4 +1,5 @@
 import 'package:catalogo_video/helper/DatabaseHelper.dart';
+import 'package:catalogo_video/pages/login.dart';
 import 'package:flutter/material.dart';
 import '../controller/LoginController.dart';
 import '../model/user.dart';
@@ -28,14 +29,31 @@ class _SignUpState extends State<SignUp> {
     String email = _emailController.text;
     String password = _passwordController.text;
 
-    User user = User(name: name, email: email, password: password);
+    try{
+        User user = (await controller.getLogin(email, password)) as User;
+        if (user.id != -1) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Usuário já existe!')),
+          );
+          
+        } else {
+          User user = User(name: name, email: email, password: password);
+          int res = await controller.saveUser(user);
 
-    int res = await controller.saveUser(user);
-    if (res != -1) {
-      print('Usuário salvo com sucesso!');
-    } else {
-      print('Erro ao salvar o usuário!');
-    }
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Usuário salvo com sucesso!')),
+          );
+
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => LoginPage()),
+          );
+        }
+      } catch (e) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(e.toString())),
+          );     
+      }
   }
   
   @override
@@ -158,5 +176,4 @@ class _SignUpState extends State<SignUp> {
         ),
     );
   }
-
 }
