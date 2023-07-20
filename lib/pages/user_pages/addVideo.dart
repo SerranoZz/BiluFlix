@@ -29,7 +29,7 @@ class _AddVideoState extends State<AddVideo> {
 
   @override
   Widget build(BuildContext context) {
-    DatabaseHelper baseFuncs = DatabaseHelper();
+    
     return Scaffold(
       backgroundColor: Color.fromARGB(0, 0, 0, 0),
       body: Container(      

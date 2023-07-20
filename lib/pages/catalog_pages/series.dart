@@ -1,16 +1,33 @@
 import 'package:flutter/material.dart';
 
+import '../../controller/VideoController.dart';
 import '../video.dart';
 
 class Serie extends StatefulWidget {
-  const Serie({super.key});
 
   @override
   State<Serie> createState() => _SerieState();
 }
 
 class _SerieState extends State<Serie> {
-  List<List<String>> labels = [['0','1','2','3'], ['4','5','6','7'], ['8','8','4','7','7','7']];
+  List<List<dynamic>> labels = [];
+
+
+  late VideoController videoController;
+
+   @override
+  void initState() {
+    super.initState();
+    videoController = VideoController();
+    _loadSeries();
+  }
+
+  Future<void> _loadSeries() async {
+  List<List<dynamic>> series = await videoController.catalogoSeries();
+  setState(() {
+    this.labels=series;
+  });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,39 +40,42 @@ class _SerieState extends State<Serie> {
           scrollDirection: Axis.vertical,
           itemCount: labels.length,
           itemBuilder: (BuildContext context, index){
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _buildText('Comédia', Colors.white, 20),
-                Container(
-                  height: 158,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: labels[0].length,
-                    itemBuilder: (BuildContext context, index2){
-                      return Container(
-                        margin: EdgeInsets.only(right: 12),
-                        width: 111,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.white,
-                        ),
-                        child: GestureDetector(
-                          onTap: () => {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => Video()), // Substitua "NovaTela" pelo nome da tela para a qual deseja navegar
-                            )
-                          },
-                        ),
-                      );
-                    }
-                  ),
-                ),
-                SizedBox(height: 15,)
-              ],
-            );
-            
+            if(labels[index].length>1){
+              return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              _buildText(labels[index][0], Colors.white, 20),
+                              Container(
+                                height: 158,
+                                child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: labels[index].length-1,
+                                  itemBuilder: (BuildContext context, index2){
+                                    return Container(
+                                      margin: EdgeInsets.only(right: 12),
+                                      width: 111,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: Colors.white,
+                                      ),
+                                      child: GestureDetector(
+                                        onTap: () => {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(builder: (context) => Video(labels[index][index2+1],labels[index][0])), // Substitua "NovaTela" pelo nome da tela para a qual deseja navegar
+                                          )
+                                        },
+                                        child: Image.network(labels[index][index2+1]["thumbnailImageId"].toString(),fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                ),
+                              ),
+                              SizedBox(height: 15,)
+                            ],
+                          );
+            }else {return Container();}
           }
         ),
       ),
@@ -65,7 +85,7 @@ class _SerieState extends State<Serie> {
   Widget _buildText(String text, Color color, double size) {
     return Text(
       text,
-      style:TextStyle(
+      style: TextStyle(
           fontSize: size,
           fontFamily: 'Lexend',
           fontWeight: FontWeight.w400,
@@ -73,4 +93,6 @@ class _SerieState extends State<Serie> {
         ),
     );
   }
+
+  
 }

@@ -52,7 +52,7 @@ class VideoController {
       }
       listaCompleta.add(listaAux);
     }
-    print(listaCompleta);
+    return listaCompleta;
   }
 
   catalogoSeries() async{
