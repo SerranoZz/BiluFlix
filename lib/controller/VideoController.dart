@@ -3,10 +3,10 @@ import '../helper/DatabaseHelper.dart';
 class VideoController {
   DatabaseHelper con = DatabaseHelper();
   
-    adicionarVideo(name, description, type, ageRestriction, durationMinutes, thumbnailImageId, releaseDate, genre) async {
+    adicionarVideo(userid, name, description, type, ageRestriction, durationMinutes, thumbnailImageId, releaseDate, genre) async {
     var db = await con.db;
-    String sql = "INSERT INTO video(name, description, type, ageRestriction, durationMinutes, thumbnailImageId, releaseDate) VALUES(?, ?, ?, ?, ?, ?, ?)";
-    List<dynamic> values = [name.text, description.text, int.parse(type.text), ageRestriction.text, int.parse(durationMinutes.text), thumbnailImageId.text, releaseDate.text];
+    String sql = "INSERT INTO video(userid, name, description, type, ageRestriction, durationMinutes, thumbnailImageId, releaseDate) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+    List<dynamic> values = [userid, name.text, description.text, int.parse(type.text), ageRestriction.text, int.parse(durationMinutes.text), thumbnailImageId.text, releaseDate.text];
 
     int id = await db.rawInsert(sql,values);
 
@@ -14,15 +14,6 @@ class VideoController {
     values = [id,int.parse(genre.text)];
 
     await db.rawInsert(sql,values);
-
-    //APAGAR DEPOISSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
-    sql = "SELECT * FROM video";
-    List<dynamic> dadosVideo = await db.rawQuery(sql);
-    print("adicionados em video: "+dadosVideo.toString());
-
-    sql = "SELECT * FROM video_genre";
-    List<dynamic> dadosVideoGenre = await db.rawQuery(sql);
-    print("adicionados em videoGenre: "+dadosVideoGenre.toString());
   }
 
   catalogoFilmes() async{
@@ -32,9 +23,6 @@ class VideoController {
 
     String sql = "SELECT * FROM genre;";
     List<dynamic> quantidadeGeneros = await db.rawQuery(sql);
-    
-    sql="SELECT * FROM video";
-    List<dynamic> dadosVideo = await db.rawQuery(sql);
 
     for( var item in quantidadeGeneros){
       List<dynamic> listaAux=[];
@@ -45,8 +33,9 @@ class VideoController {
       listaAux.add(item["name"]);
       if(dadosVideoGenre.isNotEmpty){
         for(var item2 in dadosVideoGenre){
-          if(dadosVideo[item2["id"]-1]["type"]==0){
-            listaAux.add(dadosVideo[item2["id"]-1]);
+          List<dynamic> dadosVideo = await db.rawQuery("SELECT * FROM video WHERE id = ${item2["id"]}");
+          if(dadosVideo[0]["type"]==0){
+            listaAux.add(dadosVideo[0]);
           }
         }
       }
@@ -62,9 +51,6 @@ class VideoController {
 
     String sql = "SELECT * FROM genre;";
     List<dynamic> quantidadeGeneros = await db.rawQuery(sql);
-    
-    sql="SELECT * FROM video";
-    List<dynamic> dadosVideo = await db.rawQuery(sql);
 
     for( var item in quantidadeGeneros){
       List<dynamic> listaAux=[];
@@ -75,13 +61,32 @@ class VideoController {
       listaAux.add(item["name"]);
       if(dadosVideoGenre.isNotEmpty){
         for(var item2 in dadosVideoGenre){
-          if(dadosVideo[item2["id"]-1]["type"]==1){
-            listaAux.add(dadosVideo[item2["id"]-1]);
+          List<dynamic> dadosVideo = await db.rawQuery("SELECT * FROM video WHERE id = ${item2["id"]}");
+          if(dadosVideo[0]["type"]==1){
+            listaAux.add(dadosVideo[0]);
           }
         }
       }
       listaCompleta.add(listaAux);
     }
     return listaCompleta;
+  }
+
+  meusVideos(userid) async{
+    List<dynamic> listaVideos=[];
+
+    var db = await con.db;
+
+    String sql = "SELECT * FROM video WHERE userid = ${userid};";
+    listaVideos=await db.rawQuery(sql);
+    return listaVideos;
+  }
+
+  deleteById(int id) async { 
+    var db = await con.db;
+ 
+    await db.rawDelete("DELETE FROM video WHERE id = ${id};"); 
+
+    await db.rawDelete("DELETE FROM video_genre WHERE videoid = ${id};");
   }
 }

@@ -115,8 +115,8 @@ class _UserPageState extends State<UserPage> with SingleTickerProviderStateMixin
                     TabBarView(
                       controller: tabController,
                       children: [
-                        MyVideos(),
-                        AddVideo(),
+                        MyVideos(user: widget.user),
+                        AddVideo(user: widget.user),
                       ],
                     ),
                   ),

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import '../../helper/DatabaseHelper.dart';
 import '../../controller/VideoController.dart';
+import '../../model/user.dart';
 
 class AddVideo extends StatefulWidget {
-  const AddVideo({super.key});
+  final User user;
+
+  AddVideo({required this.user});
 
   @override
   State<AddVideo> createState() => _AddVideoState();
@@ -29,7 +32,6 @@ class _AddVideoState extends State<AddVideo> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       backgroundColor: Color.fromARGB(0, 0, 0, 0),
       body: Container(      
@@ -82,7 +84,7 @@ class _AddVideoState extends State<AddVideo> {
                         ),
                         Padding(
                           padding: EdgeInsets.only(left: 20,top: 15),
-                          child: _buildButton('ADICIONAR', Color(0xFFFFF400), 350, () => videoController.adicionarVideo(_tituloController, _descricaoController, _tipo, _faixaController, _duracaoController, _urlController, _lancamentoController, _genero)),
+                          child: _buildButton('ADICIONAR', Color(0xFFFFF400), 350, () => videoController.adicionarVideo(widget.user.id, _tituloController, _descricaoController, _tipo, _faixaController, _duracaoController, _urlController, _lancamentoController, _genero)),
                         ),
                       ],                    
                     )
