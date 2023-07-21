@@ -44,8 +44,8 @@ class _CatalogState extends State<Catalog> with SingleTickerProviderStateMixin{
                     height: MediaQuery.of(context).padding.top,
                   ),
                   Image.asset(
-                    'assets/biluflix.png', // Substitua pelo caminho da sua imagem
-                    width: 150, // Ajuste a largura da imagem conforme necessário/ Ajuste a altura da imagem conforme necessário
+                    'assets/biluflix.png',
+                    width: 150,
                   ),
                   Container(
                     width: 286,

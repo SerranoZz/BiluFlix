@@ -1,7 +1,5 @@
 import 'package:catalogo_video/controller/VideoController.dart';
-import 'package:catalogo_video/pages/video.dart';
 import 'package:flutter/material.dart';
-import '../helper/DatabaseHelper.dart';
 import '../model/user.dart';
 
 class Editar extends StatefulWidget {
@@ -35,7 +33,6 @@ class _EditarState extends State<Editar> with SingleTickerProviderStateMixin{
     _faixaController.text = widget.video[this.widget.index]['ageRestriction'];
     _lancamentoController.text = widget.video[this.widget.index]['releaseDate'];
     _urlController.text = widget.video[this.widget.index]['thumbnailImageId'];
-    _tipoController.text = widget.video[this.widget.index]['type'].toString();
 
   }
 
@@ -70,80 +67,79 @@ class _EditarState extends State<Editar> with SingleTickerProviderStateMixin{
             child: Container(
               height: MediaQuery.of(context).size.height,
               child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          height: MediaQuery.of(context).padding.top,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height: MediaQuery.of(context).padding.top,
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      _buildText('Editar Vídeo', Colors.white, 30),
+                      SizedBox(height: 20),
+                      Container(
+                        width: 140,
+                        height: 200,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.0)
                         ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            _buildText('Editar Vídeo', Colors.white, 30),
-                            SizedBox(height: 20),
-
-                            Container(
-                              width: 140,
-                              height: 200,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10.0)
-                              ),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(10),
-                                child: Image.network(
-                                  widget.video[this.widget.index]['thumbnailImageId'],
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                          ],
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: Image.network(
+                            widget.video[this.widget.index]['thumbnailImageId'],
+                            fit: BoxFit.cover,
+                          ),
                         ),
-                        
-                        SizedBox(height: 15),
+                      ),
+                    ],
+                  ),
+                  
+                  SizedBox(height: 15),
 
-                        Column(      
-                          children: [
-                            _buildTextLabel('Título:', Colors.white, 350, 40, false, _tituloController),
-                            SizedBox(height: 15),
-                            _buildTextLabel('Descrição:', Colors.white, 350, 40, false, _descricaoController),
-                            SizedBox(height: 15),
-                            Row(
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.only(left: 20),
-                                  child: _buildComboBoxTipo('Tipo:', Colors.white, 130),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.only(left: 10),
-                                  child: _buildComboBoxGen('Gênero:', Colors.white, 210),
-                                ),
-                              ],
-                            ),
-                            SizedBox(height: 15),
-                            Row(
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.only(left: 20),
-                                  child: _buildTextLabel('Duração:', Colors.white, 110, 40, false, _duracaoController),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.only(left: 10),
-                                  child: _buildTextLabel('Faixa Etária:', Colors.white, 110, 40, false, _faixaController),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.only(left: 10),
-                                  child: _buildTextLabel('Lançamento:', Colors.white, 110, 40, false, _lancamentoController),
-                                ),
-                              ],
-                            ),
-                            SizedBox(height: 15),
-                            _buildTextLabel('URL Imagem (Thumbnail):', Colors.white, 350, 40, false, _urlController),
-                            SizedBox(height: 10),
-                            _buildButton('ATUALIZAR', Color(0xFFFFF400), 350, () => videoController.atualizarVideo(widget.video[widget.index]["id"],_tituloController, _descricaoController, _tipoController, _faixaController, _duracaoController, _urlController, _lancamentoController, _generoController, context, widget.user)),
-                            SizedBox(height: 15),
-                          ],
-                        ),                  
-                      ],                    
-                    )
+                  Column(      
+                    children: [
+                      _buildTextLabel('Título:', Colors.white, 350, 40, false, _tituloController),
+                      SizedBox(height: 15),
+                      _buildTextLabel('Descrição:', Colors.white, 350, 40, false, _descricaoController),
+                      SizedBox(height: 15),
+                      Row(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(left: 20),
+                            child: _buildComboBoxTipo('Tipo:', Colors.white, 130),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(left: 10),
+                            child: _buildComboBoxGen('Gênero:', Colors.white, 210),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 15),
+                      Row(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(left: 20),
+                            child: _buildTextLabel('Duração:', Colors.white, 110, 40, false, _duracaoController),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(left: 10),
+                            child: _buildTextLabel('Faixa Etária:', Colors.white, 110, 40, false, _faixaController),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(left: 10),
+                            child: _buildTextLabel('Lançamento:', Colors.white, 110, 40, false, _lancamentoController),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 15),
+                      _buildTextLabel('URL Imagem (Thumbnail):', Colors.white, 350, 40, false, _urlController),
+                      SizedBox(height: 10),
+                      _buildButton('ATUALIZAR', Color(0xFFFFF400), 350, () => videoController.atualizarVideo(widget.video[widget.index]["id"],_tituloController, _descricaoController, _tipoController, _faixaController, _duracaoController, _urlController, _lancamentoController, _generoController, context, widget.user)),
+                      SizedBox(height: 15),
+                    ],
+                  ),                  
+                ],                    
+              )
             ),
           ),
         ),

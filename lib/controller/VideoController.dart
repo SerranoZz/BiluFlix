@@ -8,24 +8,30 @@ class VideoController {
   DatabaseHelper con = DatabaseHelper();
   
     adicionarVideo(userid, name, description, type, ageRestriction, durationMinutes, thumbnailImageId, releaseDate, genre, BuildContext context, user) async {
-    var db = await con.db;
-    String sql = "INSERT INTO video(userid, name, description, type, ageRestriction, durationMinutes, thumbnailImageId, releaseDate) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
-    List<dynamic> values = [userid, name.text, description.text, int.parse(type.text), ageRestriction.text, int.parse(durationMinutes.text), thumbnailImageId.text, releaseDate.text];
+      
+      if(name.text != "" && description.text != "" && type.text != "" && ageRestriction.text != "" && durationMinutes.text != "" && thumbnailImageId.text != "" && releaseDate.text != "" && genre.text != ""){
+        var db = await con.db;
+        String sql = "INSERT INTO video(userid, name, description, type, ageRestriction, durationMinutes, thumbnailImageId, releaseDate) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+        List<dynamic> values = [userid, name.text, description.text, int.parse(type.text), ageRestriction.text, int.parse(durationMinutes.text), thumbnailImageId.text, releaseDate.text];
 
-    int id = await db.rawInsert(sql,values);
+        int id = await db.rawInsert(sql,values);
 
-    sql = "INSERT INTO video_genre(videoid, genreid) VALUES(?, ?)";
-    values = [id,int.parse(genre.text)];
+        sql = "INSERT INTO video_genre(videoid, genreid) VALUES(?, ?)";
+        values = [id,int.parse(genre.text)];
 
-    await db.rawInsert(sql,values);
+        await db.rawInsert(sql,values);
 
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => NavBar(user: user)),
-    );
-  
-    
-  }
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => NavBar(user: user)),
+        );
+      }
+      else{
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Preencha todos os campos!')),
+        );
+      }   
+    }
 
   catalogoFilmes() async{
     List<List<dynamic>> listaCompleta=[];
@@ -102,16 +108,27 @@ class VideoController {
   }
 
   atualizarVideo(videoid, name, description, type, ageRestriction, durationMinutes, thumbnailImageId, releaseDate, genre, BuildContext context, user) async {
-  var db = await con.db;
 
-  String sql = "UPDATE video SET name = ?, description = ?, type = ?, ageRestriction = ?, durationMinutes = ?, thumbnailImageId = ?, releaseDate = ? WHERE id = ?";
-  List<dynamic> values = [name.text, description.text, int.parse(type.text), ageRestriction.text, int.parse(durationMinutes.text), thumbnailImageId.text, releaseDate.text, videoid];
-  await db.rawUpdate(sql, values);
+    if(type.text != "" && genre.text != ""){
+      var db = await con.db;
 
-  Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => NavBar(user: user)),
-    );
+      String sql = "UPDATE video SET name = ?, description = ?, type = ?, ageRestriction = ?, durationMinutes = ?, thumbnailImageId = ?, releaseDate = ? WHERE id = ?";
+      List<dynamic> values = [name.text, description.text, int.parse(type.text), ageRestriction.text, int.parse(durationMinutes.text), thumbnailImageId.text, releaseDate.text, videoid];
+      await db.rawUpdate(sql, values);
+
+      sql = "UPDATE video_genre SET genreid = ? WHERE videoid = ?";
+      values = [genre.text, videoid];
+      await db.rawUpdate(sql, values);
+    
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => NavBar(user: user)),
+      );
+
+    }else{
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Preencha todos os campos!')),
+      );
+    }
   }
-
 }

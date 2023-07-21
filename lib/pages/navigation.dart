@@ -1,5 +1,4 @@
 import 'package:catalogo_video/pages/login.dart';
-import 'package:catalogo_video/pages/signup.dart';
 import 'package:catalogo_video/pages/userpage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
@@ -8,7 +7,7 @@ import '../model/user.dart';
 import 'catalog.dart';
 
 class NavBar extends StatefulWidget {
-  final User? user; // Make user nullable
+  final User? user;
 
   NavBar({
     this.user, 
@@ -46,7 +45,7 @@ class _NavBarState extends State<NavBar> {
         child: 
         BottomNavigationBar(
           backgroundColor: Color(0xF2030000),
-          selectedItemColor: Color(0xFFFFF400), // Cor do item selecionado
+          selectedItemColor: Color(0xFFFFF400),
           unselectedItemColor: Colors.white,
           currentIndex: _currentIndex,
           onTap: (int index) {

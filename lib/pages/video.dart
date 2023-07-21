@@ -22,7 +22,7 @@ class _VideoState extends State<Video> {
           ),
         ),
         child: Center(
-          child: SingleChildScrollView( // Adicionado o SingleChildScrollView
+          child: SingleChildScrollView(
             child: Column(
               children: [
                 Image.network(
@@ -34,7 +34,6 @@ class _VideoState extends State<Video> {
                 _buildText(widget.video["name"], 30),
                 SizedBox(height: 10),
                 Divider(
-                  // Linha horizontal
                   color: Colors.white,
                   thickness: 1,
                   height: 0,
@@ -47,7 +46,6 @@ class _VideoState extends State<Video> {
 
                 SizedBox(height: 10),
                 Divider(
-                  // Linha horizontal
                   color: Colors.white,
                   thickness: 1,
                   height: 0,

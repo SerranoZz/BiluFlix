@@ -122,9 +122,9 @@ class _LoginPageState extends State<LoginPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Image.asset(
-                    'assets/logo.png', // Substitua pelo caminho da sua imagem
-                    width: 140, // Ajuste a largura da imagem conforme necessário
-                    height: 140, // Ajuste a altura da imagem conforme necessário
+                    'assets/logo.png',
+                    width: 140,
+                    height: 140,
                   ),
                   _buildText('Login', Colors.white, 30),
                   _buildText('Olá, seja bem-vindo(a)', Colors.white, 21),
@@ -149,7 +149,7 @@ class _LoginPageState extends State<LoginPage> {
                           onTap: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => SignUp()), // Substitua "NovaTela" pelo nome da tela para a qual deseja navegar
+                              MaterialPageRoute(builder: (context) => SignUp()),
                             );
                           },
                           child: Text(

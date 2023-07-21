@@ -21,13 +21,10 @@ class UserPage extends StatefulWidget {
 class _UserPageState extends State<UserPage> with SingleTickerProviderStateMixin{
   late TabController tabController;
 
-  LoginStatus _loginStatus = LoginStatus.signIn;
-
   signOut() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     setState(() {
       preferences.setInt("value", 0);
-      _loginStatus = LoginStatus.notSignIn;
     });
 
     Navigator.push(
@@ -67,8 +64,8 @@ class _UserPageState extends State<UserPage> with SingleTickerProviderStateMixin
                     height: MediaQuery.of(context).padding.top,
                   ),
                   Image.asset(
-                    'assets/bilu.png', // Substitua pelo caminho da sua imagem
-                    width: 100, // Ajuste a largura da imagem conforme necessário/ Ajuste a altura da imagem conforme necessário
+                    'assets/bilu.png',
+                    width: 100,
                   ),
                   SizedBox(height: 10),
                   Container(

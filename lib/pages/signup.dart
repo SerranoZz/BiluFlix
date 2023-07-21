@@ -58,7 +58,6 @@ class _SignUpState extends State<SignUp> {
   
   @override
   Widget build(BuildContext context) {
-    DatabaseHelper bancoFuncs = DatabaseHelper();
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -76,9 +75,9 @@ class _SignUpState extends State<SignUp> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Image.asset(
-                    'assets/logo.png', // Substitua pelo caminho da sua imagem
-                    width: 140, // Ajuste a largura da imagem conforme necessário
-                    height: 140, // Ajuste a altura da imagem conforme necessário
+                    'assets/logo.png',
+                    width: 140,
+                    height: 140,
                   ),
                   Container(
                     child: Column(children: [

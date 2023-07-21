@@ -42,39 +42,49 @@ class _FilmState extends State<Film> {
           itemBuilder: (BuildContext context, index){
             if(labels[index].length>1){
               return Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              _buildText(labels[index][0], Colors.white, 20),
-                              Container(
-                                height: 158,
-                                child: ListView.builder(
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: labels[index].length-1,
-                                  itemBuilder: (BuildContext context, index2){
-                                    return Container(
-                                      margin: EdgeInsets.only(right: 12),
-                                      width: 111,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        color: Colors.white,
-                                      ),
-                                      child: GestureDetector(
-                                        onTap: () => {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(builder: (context) => Video(labels[index][index2+1],labels[index][0])),
-                                          )
-                                        },
-                                        child: Image.network(labels[index][index2+1]["thumbnailImageId"].toString(),fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                    );
-                                  }
-                                ),
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildText(labels[index][0], Colors.white, 20),
+                  Container(
+                    height: 158,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: labels[index].length-1,
+                      itemBuilder: (BuildContext context, index2){
+                        return Container(
+                          margin: EdgeInsets.only(right: 12),
+                          width: 111,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.white,
+                          ),
+                          child: GestureDetector(
+                            onTap: () => {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => Video(labels[index][index2+1],labels[index][0])),
+                              )
+                            },
+                            child: Container(
+                              width: 140,
+                              height: 200,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10.0)
                               ),
-                              SizedBox(height: 15,)
-                            ],
-                          );
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(10),
+                                child: 
+                                  Image.network(labels[index][index2+1]["thumbnailImageId"].toString(),fit: BoxFit.cover,),
+                              ),
+                            ),
+                          ),
+                        );
+                      }
+                    ),
+                  ),
+                  SizedBox(height: 15,)
+                ],
+              );
             }else {return Container();}
           }
         ),
@@ -93,6 +103,4 @@ class _FilmState extends State<Film> {
         ),
     );
   }
-
-  
 }

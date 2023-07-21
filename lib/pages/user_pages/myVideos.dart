@@ -110,7 +110,7 @@ class _MyVideosState extends State<MyVideos> {
         } else if (direction == DismissDirection.startToEnd) {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => Editar(video: labels,index: index, user: widget.user,)), // Substitua "NovaTela" pelo nome da tela para a qual deseja navegar
+            MaterialPageRoute(builder: (context) => Editar(video: labels,index: index, user: widget.user,)),
           );
         }
       }, 
@@ -175,13 +175,17 @@ class _MyVideosState extends State<MyVideos> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(right: 26),
+              padding: EdgeInsets.only(right: 30),
               child: Container(
-              constraints: 
-                BoxConstraints(
-                  maxWidth: 200, // Defina o valor máximo de largura desejado
+                constraints: BoxConstraints(
+                  maxWidth: 200,
                 ),
-                child: _buildText(this.labels[index]["name"], Colors.white, 18),
+                alignment: Alignment.center,
+                child: _buildText(
+                  "${this.labels[index]["name"]}  \n\n ${this.labels[index]["type"] == 0 ? "Filme" : "Série"}",
+                  Colors.white,
+                  18,
+                ), 
               ),
             ),
           ],
