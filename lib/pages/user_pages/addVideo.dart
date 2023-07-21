@@ -19,8 +19,8 @@ class _AddVideoState extends State<AddVideo> {
   TextEditingController _faixaController = TextEditingController();
   TextEditingController _lancamentoController = TextEditingController();
   TextEditingController _urlController = TextEditingController();
-  TextEditingController _tipo = TextEditingController();
-  TextEditingController _genero = TextEditingController();
+  TextEditingController _tipoController = TextEditingController();
+  TextEditingController _generoController = TextEditingController();
   
   late VideoController videoController;
 
@@ -54,11 +54,11 @@ class _AddVideoState extends State<AddVideo> {
                           children: [
                             Padding(
                               padding: EdgeInsets.only(left: 20,top: 15),
-                              child: _buildTextLabel('Tipo:', Colors.white, 130, false, _tipo, "Filme"),
+                              child: _buildComboBoxTipo('Tipo:', Colors.white, 130),
                             ),
                             Padding(
                               padding: EdgeInsets.only(left: 10,top: 15),
-                              child: _buildTextLabel('Gênero:', Colors.white, 210, false, _genero, "Aventura"),
+                              child: _buildComboBoxGen('Gênero:', Colors.white, 210),
                             ),
                           ],
                         ),
@@ -84,7 +84,7 @@ class _AddVideoState extends State<AddVideo> {
                         ),
                         Padding(
                           padding: EdgeInsets.only(left: 20,top: 15),
-                          child: _buildButton('ADICIONAR', Color(0xFFFFF400), 350, () => videoController.adicionarVideo(widget.user.id, _tituloController, _descricaoController, _tipo, _faixaController, _duracaoController, _urlController, _lancamentoController, _genero)),
+                          child: _buildButton('ADICIONAR', Color(0xFFFFF400), 350, () => videoController.adicionarVideo(widget.user.id, _tituloController, _descricaoController, _tipoController, _faixaController, _duracaoController, _urlController, _lancamentoController, _generoController, context, widget.user)),
                         ),
                       ],                    
                     )
@@ -174,7 +174,7 @@ class _AddVideoState extends State<AddVideo> {
     );
   }
 
-  Widget _buildComboBox(String text, Color color, double width, valor) {
+  Widget _buildComboBoxGen(String text, Color color, double width) {
     return Container(
       width: width,
       child: Column(
@@ -204,12 +204,76 @@ class _AddVideoState extends State<AddVideo> {
                 borderRadius: BorderRadius.circular(10),
                 items: [
                   DropdownMenuItem<String>(
-                    value: 'Option 1',
+                    value: '1',
                     child: 
                     Padding(
                       padding: EdgeInsets.only(top: 8),
                       child: Text(
-                        'Masculino',
+                        'Comédia',
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontFamily: 'Lexend',
+                            fontWeight: FontWeight.w400,
+                          ),
+                      ),
+                    ),
+                  ),
+
+                  DropdownMenuItem<String>(
+                    value: '2',
+                    child: 
+                    Padding(
+                      padding: EdgeInsets.only(top: 8),
+                      child: Text(
+                        'Terror',
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontFamily: 'Lexend',
+                            fontWeight: FontWeight.w400,
+                          ),
+                      ),
+                    ),
+                  ),
+
+                  DropdownMenuItem<String>(
+                    value: '3',
+                    child: 
+                    Padding(
+                      padding: EdgeInsets.only(top: 8),
+                      child: Text(
+                        'Aventura',
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontFamily: 'Lexend',
+                            fontWeight: FontWeight.w400,
+                          ),
+                      ),
+                    ),
+                  ),
+
+                  DropdownMenuItem<String>(
+                    value: '4',
+                    child: 
+                    Padding(
+                      padding: EdgeInsets.only(top: 8),
+                      child: Text(
+                        'Suspense',
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontFamily: 'Lexend',
+                            fontWeight: FontWeight.w400,
+                          ),
+                      ),
+                    ),
+                  ),
+
+                  DropdownMenuItem<String>(
+                    value: '5',
+                    child: 
+                    Padding(
+                      padding: EdgeInsets.only(top: 8),
+                      child: Text(
+                        'Ação',
                         style: TextStyle(
                             fontSize: 16,
                             fontFamily: 'Lexend',
@@ -220,7 +284,81 @@ class _AddVideoState extends State<AddVideo> {
                   ),
                 ],
                 onChanged: (value) {
-                  valor=value;
+                  _generoController.text = value!;
+                },
+                value: null, 
+                isExpanded: true,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildComboBoxTipo(String text, Color color, double width) {
+    return Container(
+      width: width,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            text,
+            style: TextStyle(
+              fontSize: 16,
+              fontFamily: 'Lexend',
+              fontWeight: FontWeight.w400,
+              color: color,
+            ),
+          ),
+
+          Container(
+            height: 40.0,
+            width: width,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5.0),
+              color: Colors.white,
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: DropdownButtonFormField<String>(
+                decoration: InputDecoration.collapsed(hintText: ''),
+                borderRadius: BorderRadius.circular(10),
+                items: [
+                  DropdownMenuItem<String>(
+                    value: '0',
+                    child: 
+                    Padding(
+                      padding: EdgeInsets.only(top: 8),
+                      child: Text(
+                        'Filme',
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontFamily: 'Lexend',
+                            fontWeight: FontWeight.w400,
+                          ),
+                      ),
+                    ),
+                  ),
+
+                  DropdownMenuItem<String>(
+                    value: '1',
+                    child: 
+                    Padding(
+                      padding: EdgeInsets.only(top: 8),
+                      child: Text(
+                        'Série',
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontFamily: 'Lexend',
+                            fontWeight: FontWeight.w400,
+                          ),
+                      ),
+                    ),
+                  ),
+                ],
+                onChanged: (value) {
+                  _tipoController.text=value!;
                 },
                 value: null, 
                 isExpanded: true,

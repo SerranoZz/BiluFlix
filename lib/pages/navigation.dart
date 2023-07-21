@@ -9,11 +9,9 @@ import 'catalog.dart';
 
 class NavBar extends StatefulWidget {
   final User? user; // Make user nullable
-  final int id;
 
   NavBar({
-    this.user, // Make user parameter optional with a default value of null
-    required this.id,
+    this.user, 
   });
 
   @override
@@ -24,12 +22,10 @@ class _NavBarState extends State<NavBar> {
   @override
   
   final List<Widget> _pages = [];
+  int _currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
-
-    int _currentIndex = widget.id;
-
     _pages.clear();
     if(widget.user != null){
       _pages.addAll([

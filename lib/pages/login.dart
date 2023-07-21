@@ -43,7 +43,7 @@ class _LoginPageState extends State<LoginPage> {
 
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => NavBar(user: user, id: 0)),
+            MaterialPageRoute(builder: (context) => NavBar(user: user)),
           );
           
         } else {
@@ -91,7 +91,7 @@ class _LoginPageState extends State<LoginPage> {
   void changeToCatalog(BuildContext context){;
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => NavBar(id: 0)),
+      MaterialPageRoute(builder: (context) => NavBar()),
     );
   }
 

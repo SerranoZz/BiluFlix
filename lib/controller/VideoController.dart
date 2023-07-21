@@ -7,7 +7,7 @@ import '../pages/navigation.dart';
 class VideoController {
   DatabaseHelper con = DatabaseHelper();
   
-    adicionarVideo(userid, name, description, type, ageRestriction, durationMinutes, thumbnailImageId, releaseDate, genre) async {
+    adicionarVideo(userid, name, description, type, ageRestriction, durationMinutes, thumbnailImageId, releaseDate, genre, BuildContext context, user) async {
     var db = await con.db;
     String sql = "INSERT INTO video(userid, name, description, type, ageRestriction, durationMinutes, thumbnailImageId, releaseDate) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
     List<dynamic> values = [userid, name.text, description.text, int.parse(type.text), ageRestriction.text, int.parse(durationMinutes.text), thumbnailImageId.text, releaseDate.text];
@@ -18,6 +18,12 @@ class VideoController {
     values = [id,int.parse(genre.text)];
 
     await db.rawInsert(sql,values);
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => NavBar(user: user)),
+    );
+  
     
   }
 
@@ -97,7 +103,6 @@ class VideoController {
 
   atualizarVideo(videoid, name, description, type, ageRestriction, durationMinutes, thumbnailImageId, releaseDate, genre, BuildContext context, user) async {
   var db = await con.db;
-  print('a');
 
   String sql = "UPDATE video SET name = ?, description = ?, type = ?, ageRestriction = ?, durationMinutes = ?, thumbnailImageId = ?, releaseDate = ? WHERE id = ?";
   List<dynamic> values = [name.text, description.text, int.parse(type.text), ageRestriction.text, int.parse(durationMinutes.text), thumbnailImageId.text, releaseDate.text, videoid];
@@ -105,7 +110,8 @@ class VideoController {
 
   Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => NavBar(user: user, id: 1)),
+      MaterialPageRoute(builder: (context) => NavBar(user: user)),
     );
   }
+
 }

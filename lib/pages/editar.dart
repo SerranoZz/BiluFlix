@@ -22,8 +22,8 @@ class _EditarState extends State<Editar> with SingleTickerProviderStateMixin{
   TextEditingController _faixaController = TextEditingController();
   TextEditingController _lancamentoController = TextEditingController();
   TextEditingController _urlController = TextEditingController();
-  TextEditingController _tipo = TextEditingController();
-  TextEditingController _genero = TextEditingController();
+  TextEditingController _tipoController = TextEditingController();
+  TextEditingController _generoController = TextEditingController();
 
   late VideoController videoController;
   late TabController tabController;
@@ -35,7 +35,8 @@ class _EditarState extends State<Editar> with SingleTickerProviderStateMixin{
     _faixaController.text = widget.video[this.widget.index]['ageRestriction'];
     _lancamentoController.text = widget.video[this.widget.index]['releaseDate'];
     _urlController.text = widget.video[this.widget.index]['thumbnailImageId'];
-    _tipo.text = widget.video[this.widget.index]['type'].toString();
+    _tipoController.text = widget.video[this.widget.index]['type'].toString();
+
   }
 
   @override
@@ -44,7 +45,6 @@ class _EditarState extends State<Editar> with SingleTickerProviderStateMixin{
     super.initState();
     funcao();
     videoController = VideoController();
-    print(this.widget.video);
   }
   
   @override
@@ -110,11 +110,11 @@ class _EditarState extends State<Editar> with SingleTickerProviderStateMixin{
                               children: [
                                 Padding(
                                   padding: EdgeInsets.only(left: 20),
-                                  child: _buildTextLabel('Tipo:', Colors.white, 130, 40, false, _tipo),
+                                  child: _buildComboBoxTipo('Tipo:', Colors.white, 130),
                                 ),
                                 Padding(
                                   padding: EdgeInsets.only(left: 10),
-                                  child: _buildTextLabel('Gênero:', Colors.white, 210, 40, false, _genero),
+                                  child: _buildComboBoxGen('Gênero:', Colors.white, 210),
                                 ),
                               ],
                             ),
@@ -138,7 +138,7 @@ class _EditarState extends State<Editar> with SingleTickerProviderStateMixin{
                             SizedBox(height: 15),
                             _buildTextLabel('URL Imagem (Thumbnail):', Colors.white, 350, 40, false, _urlController),
                             SizedBox(height: 10),
-                            _buildButton('ATUALIZAR', Color(0xFFFFF400), 350, () => videoController.atualizarVideo(widget.video[widget.index]["id"],_tituloController, _descricaoController, _tipo, _faixaController, _duracaoController, _urlController, _lancamentoController, _genero, context, widget.user)),
+                            _buildButton('ATUALIZAR', Color(0xFFFFF400), 350, () => videoController.atualizarVideo(widget.video[widget.index]["id"],_tituloController, _descricaoController, _tipoController, _faixaController, _duracaoController, _urlController, _lancamentoController, _generoController, context, widget.user)),
                             SizedBox(height: 15),
                           ],
                         ),                  
@@ -230,7 +230,7 @@ class _EditarState extends State<Editar> with SingleTickerProviderStateMixin{
     );
   }
 
-  Widget _buildComboBox(String text, Color color, double width) {
+  Widget _buildComboBoxGen(String text, Color color, double width) {
     return Container(
       width: width,
       child: Column(
@@ -265,7 +265,71 @@ class _EditarState extends State<Editar> with SingleTickerProviderStateMixin{
                     Padding(
                       padding: EdgeInsets.only(top: 8),
                       child: Text(
-                        'Masculino',
+                        'Comédia',
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontFamily: 'Lexend',
+                            fontWeight: FontWeight.w400,
+                          ),
+                      ),
+                    ),
+                  ),
+
+                  DropdownMenuItem<String>(
+                    value: '2',
+                    child: 
+                    Padding(
+                      padding: EdgeInsets.only(top: 8),
+                      child: Text(
+                        'Terror',
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontFamily: 'Lexend',
+                            fontWeight: FontWeight.w400,
+                          ),
+                      ),
+                    ),
+                  ),
+
+                  DropdownMenuItem<String>(
+                    value: '3',
+                    child: 
+                    Padding(
+                      padding: EdgeInsets.only(top: 8),
+                      child: Text(
+                        'Aventura',
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontFamily: 'Lexend',
+                            fontWeight: FontWeight.w400,
+                          ),
+                      ),
+                    ),
+                  ),
+
+                  DropdownMenuItem<String>(
+                    value: '4',
+                    child: 
+                    Padding(
+                      padding: EdgeInsets.only(top: 8),
+                      child: Text(
+                        'Suspense',
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontFamily: 'Lexend',
+                            fontWeight: FontWeight.w400,
+                          ),
+                      ),
+                    ),
+                  ),
+
+                  DropdownMenuItem<String>(
+                    value: '5',
+                    child: 
+                    Padding(
+                      padding: EdgeInsets.only(top: 8),
+                      child: Text(
+                        'Ação',
                         style: TextStyle(
                             fontSize: 16,
                             fontFamily: 'Lexend',
@@ -276,7 +340,81 @@ class _EditarState extends State<Editar> with SingleTickerProviderStateMixin{
                   ),
                 ],
                 onChanged: (value) {
-                  print('Item selecionado: $value');
+                  _generoController.text = value!;
+                },
+                value: null, 
+                isExpanded: true,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildComboBoxTipo(String text, Color color, double width) {
+    return Container(
+      width: width,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            text,
+            style: TextStyle(
+              fontSize: 16,
+              fontFamily: 'Lexend',
+              fontWeight: FontWeight.w400,
+              color: color,
+            ),
+          ),
+
+          Container(
+            height: 40.0,
+            width: width,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5.0),
+              color: Colors.white,
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: DropdownButtonFormField<String>(
+                decoration: InputDecoration.collapsed(hintText: ''),
+                borderRadius: BorderRadius.circular(10),
+                items: [
+                  DropdownMenuItem<String>(
+                    value: '0',
+                    child: 
+                    Padding(
+                      padding: EdgeInsets.only(top: 8),
+                      child: Text(
+                        'Filme',
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontFamily: 'Lexend',
+                            fontWeight: FontWeight.w400,
+                          ),
+                      ),
+                    ),
+                  ),
+
+                  DropdownMenuItem<String>(
+                    value: '1',
+                    child: 
+                    Padding(
+                      padding: EdgeInsets.only(top: 8),
+                      child: Text(
+                        'Série',
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontFamily: 'Lexend',
+                            fontWeight: FontWeight.w400,
+                          ),
+                      ),
+                    ),
+                  ),
+                ],
+                onChanged: (value) {
+                  _tipoController.text=value!;
                 },
                 value: null, 
                 isExpanded: true,
