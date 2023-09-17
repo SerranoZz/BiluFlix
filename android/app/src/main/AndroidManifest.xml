@@ -1,9 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.catalogo_video">
+    <uses-permission android:name="android.permission.INTERNET" />
    <application
-        android:label="catalogo_video"
+        android:label="BiluFlix"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/icon">
         <activity
             android:name=".MainActivity"
             android:exported="true"
