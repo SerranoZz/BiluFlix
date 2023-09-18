@@ -8,6 +8,10 @@ Trabalho realizado durante a disciplina "Laboratório de Dispositivos Móveis", 
 <a href="https://github.com/MateusFerreiraMachado" target="_blank">Mateus Ferreira Machado</a><br/>
 
 # BiluFlix
-Tela de Login 
-<img src="/assets/login.jpg">
+Algumas telas do App
+<div align="center">
+  <img src="/assets/login.jpg" width="300" />
+  <img src="/assets/catalogo.jpg" width="300" /> 
+  <img src="/assets/adicionar_video.jpg" width="300" /> 
+</div>
 
