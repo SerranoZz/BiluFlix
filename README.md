@@ -10,8 +10,8 @@ Trabalho realizado durante a disciplina "Laboratório de Dispositivos Móveis", 
 # BiluFlix
 Algumas telas do App
 <div align="center">
-  <img src="/assets/login.jpg" width="300" />
-  <img src="/assets/catalogo.jpg" width="300" /> 
-  <img src="/assets/adicionar_video.jpg" width="300" /> 
+  <img src="/assets/login.jpg" width="200" />
+  <img src="/assets/catalogo.jpg" width="200" /> 
+  <img src="/assets/adicionar_video.jpg" width="200" /> 
 </div>
 
