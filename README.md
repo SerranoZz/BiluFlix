@@ -8,5 +8,6 @@ Trabalho realizado durante a disciplina "Laboratório de Dispositivos Móveis", 
 <a href="https://github.com/MateusFerreiraMachado" target="_blank">Mateus Ferreira Machado</a><br/>
 
 # BiluFlix
-Tela de Login !
+Tela de Login 
+<img src="/assets/img/arquivo.gif">
 
