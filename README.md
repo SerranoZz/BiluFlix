@@ -9,5 +9,5 @@ Trabalho realizado durante a disciplina "Laboratório de Dispositivos Móveis", 
 
 # BiluFlix
 Tela de Login 
-<img src="/assets/img/arquivo.gif">
+<img src="/assets/login.jpg">
 
